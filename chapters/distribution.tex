@@ -1,0 +1,501 @@
+\فصل{توزیع‌های آشکارساز}
+در این قسمت، ابتدا خاصیت \لر{CFAR}\پانویس{Constant false alarm rate} آشکارساز معرفی شده را بررسی می‌کنیم. سپس، توزیع مجانبی 
+$T_R$
+را تحت فرض‌های 
+$H_0$
+و
+$H_1$
+به دست می‌آوریم. از آن‌جایی که
+$T_R$
+محدود به بازه‌ی
+$[0, nm(m-1)]$
+است، می‌توانیم یک توزیع بتا را برای توزیع تقریبی آشکارساز انتخاب کنیم. نحوه به دست آوردن توزیع به این صورت است که ابتدا، ممان های مرتبه اول و دوم آشکارساز را به دست می‌آوریم و با ممان های متناظر توزیع بتا مطابقت می‌دهیم تا پارامترها را پیدا کنیم.
+\قسمت{خاصیت \لر{CFAR}}
+
+برای بررسی ویژگی CFAR آشکارساز پیشنهادی، از نظریه‌ی \لر{invariant} استفاده می‌کنیم.  
+فرض کنید 
+$\mathbf{\Sigma}'$
+یک ماتریس قطری با درایه‌های قطری نامعلوم و مثبت باشد. برای اثبات ویژگی CFAR کافی است دو نکته را تحت $H_{0}$ نشان دهیم:
+
+\begin{enumerate}
+	\item کوانتیزه‌سازی یک‌بیتی تبدیل
+	$\mathbf{\Sigma}'^{1/2}\mathbf{x}(t)$،
+	که با 
+	$\mathcal{Q}(\mathbf{\Sigma}'^{1/2}\mathbf{x}(t))$ 
+	نشان داده می‌شود، متعلق به همان خانواده‌ی توزیع داده‌های اولیه‌ی یک‌بیتی
+	$\mathbf{y}(t)$ 
+	است.
+	\item آشکارساز پیشنهادی
+	 $\mathcal{Q}(\mathbf{\Sigma}'^{1/2}\mathbf{x}(t))$ 
+	 را دقیقاً به همان نتیجه‌ای نگاشت می‌کند که
+	 $\mathbf{y}(t)$
+	 را می‌کند.
+\end{enumerate}
+
+از آن‌جا که 
+$\mathbf{\Sigma}'$ 
+قطری با درایه‌های مثبت است و با توجه به خاصیت
+ $\mathrm{sign}(ax)=\mathrm{sign}(x)$
+ برای
+  $a>0$،
+  داریم
+\begin{align}
+	\mathcal{Q}(\mathbf{\Sigma}'^{1/2}\mathbf{x}(t))
+	&=\mathrm{sign}\!\big(\mathbf{\Sigma}'^{1/2}\mathrm{Re}(\mathbf{x}(t))\big)
+	+ j\,\mathrm{sign}\!\big(\mathbf{\Sigma}'^{1/2}\mathrm{Im}(\mathbf{x}(t))\big) \notag \\
+	&=\mathrm{sign}\!\big(\mathrm{Re}(\mathbf{x}(t))\big)
+	+ j\,\mathrm{sign}\!\big(\mathrm{Im}(\mathbf{x}(t))\big) \notag \\
+	&=\mathbf{y}(t). \label{eq:cfar1}
+\end{align}
+بنابراین 
+$\mathcal{Q}(\mathbf{\Sigma}'^{1/2}\mathbf{x}(t))$
+و 
+$\mathbf{y}(t)$
+دارای توزیع یکسانی هستند.  
+
+اکنون مقدار آماره‌ی آزمون رائو برای داده‌های تبدیل‌شده بررسی می‌شود:
+\begin{align}
+	T_{R}\!\left(\mathcal{Q}(\mathbf{\Sigma}'^{1/2}\mathbf{X})\right)
+	&=\frac{n}{2}\sum_{i,j=1,\; i<j}^{m}
+	\left|\frac{1}{n}\sum_{t=1}^{n}
+	\mathbf{Q}(\sigma'_{i}x_{i}(t))\,\mathbf{Q}(\sigma'_{j}x_{j}(t))^{*}\right|^{2} \notag \\
+	&=\frac{n}{2}\sum_{i,j=1,\; i<j}^{m}
+	\left|\frac{1}{n}\sum_{t=1}^{n}y_{i}(t)\,y_{j}^{*}(t)\right|^{2} \notag \\
+	&=T_{R}(\mathbf{Y}), \label{eq:cfar2}
+\end{align}
+که در آن
+$\mathbf{Y}=[\mathbf{y}(1),\ldots,\mathbf{y}(n)]$
+و 
+$\sigma'_{i}$
+درایه‌ی
+$(i,i)$ 
+ماتریس
+$\mathbf{\Sigma}'$ 
+است.  
+
+به طور مشابه، برای آزمون EMR یک‌بیتی داریم:
+\begin{align}
+	T_{O}
+	&=1+\frac{1}{m}\sum_{i,j=1,\; i<j}^{2m}
+	|\hat r_{\tilde{\mathbf{y}}}(i,j)|^{2}, \label{eq:cfar3}
+\end{align}
+که در آن 
+$\hat r_{\tilde{\mathbf{y}}}(i,j)$ 
+درایه‌ی $(i,j)$ ماتریس کوواریانس یک‌بیتی گسترش‌یافته
+$\hat{\mathbf{R}}_{\tilde{\mathbf{y}}}$ 
+است.  
+اگر بردار 
+$\tilde{\mathbf{y}}_{\mathrm{tra}}(t)$ 
+را به صورت زیر تعریف کنیم
+\[
+\tilde{\mathbf{y}}_{\mathrm{tra}}(t)=
+\big[\,\mathrm{Re}(\mathcal{Q}(\mathbf{\Sigma}'^{1/2}\mathbf{x}(t)))^{T},~
+\mathrm{Im}(\mathcal{Q}(\mathbf{\Sigma}'^{1/2}\mathbf{x}(t)))^{T}\,\big]^{T},
+\]
+خواهیم داشت
+\begin{align}
+	\hat{\mathbf{R}}_{\tilde{\mathbf{y}}_{\mathrm{tra}}}
+	&=\frac{1}{n}\sum_{t=1}^{n}\tilde{\mathbf{y}}_{\mathrm{tra}}(t)\tilde{\mathbf{y}}_{\mathrm{tra}}^{T}(t)
+	=\frac{1}{n}\sum_{t=1}^{n}\tilde{\mathbf{y}}(t)\tilde{\mathbf{y}}^{T}(t)
+	=\hat{\mathbf{R}}_{\tilde{\mathbf{y}}}. \label{eq:cfar4}
+\end{align}
+در نتیجه
+\[
+T_{O}\!\left(\mathcal{Q}(\mathbf{\Sigma}'^{1/2}\mathbf{X})\right)=T_{O}(\mathbf{Y}).
+\]
+
+\noindent\textbf{نتیجه‌گیری:}  
+بنابراین هم روش پیشنهادی و هم آزمون EMR یک‌بیتی حتی در شرایط نامعینی واریانس نویز، آستانه‌ی آشکارسازی ثابتی را حفظ می‌کنند.  
+به بیان دیگر، هر دو روش دارای ویژگی CFAR هستند. این خاصیت نیز با شبیه‌سازی‌های فصل‌های بعد تأیید می‌شود.
+\قسمت{توزیع تحت فرض $H_0$}
+برای آن که آشکارساز به بازه‌ی 
+$[0, 1]$
+نگاشت شود، آماره‌ی جدید
+$T'_R$
+را به صورت زیر تعریف می‌کنیم.
+\begin{equation}
+	T'_R=\frac{1}{nm(m-1)}T_R
+\end{equation}
+ ممان‌های مرتبه اول و دوم این آماره، در قضیه زیر داده شده‌اند.
+
+\begin{قضیه}
+	تحت فرض
+	$H_0$،
+	میانگین و واریانس 
+	$T'_R$
+	به صورت زیر هستند :
+	\begin{equation}
+		\mu_0=\frac{1}{n} \label{eq:39}
+	\end{equation}	
+	\begin{equation}
+		\sigma_0^2=\frac{2(n-1)}{m(m-1)n^3} \label{eq:40}	
+	\end{equation}
+\end{قضیه}
+\begin{اثبات}
+	
+	از آن‌جا که مشاهدات در زمان‌های مختلف مستقل هستند و هر مؤلفه‌ی $\tilde y_{a}(t)$ تنها می‌تواند مقادیر $\pm 1$ بگیرد، داریم
+	\begin{align}
+		\mathbb{E}\!\left[\prod_{t=1}^{n}\prod_{a=1}^{2m}\big(\tilde y_{a}(t)\big)^{\eta_{at}}\right]
+		&=\prod_{t=1}^{n}\mathbb{E}\!\left[\prod_{a=1}^{2m}\big(\tilde y_{a}(t)\big)^{\mathrm{mod}(\eta_{at},2)}\right], \label{eq:B1}
+	\end{align}
+	که در آن $\eta_{at}\in\mathbb{N}$ و $\mathrm{mod}(\eta,2)$ باقیمانده‌ی تقسیم $\eta$ بر $2$ است.  
+	
+	تحت $H_{0}$، تابع جرم احتمال $p(\tilde{\mathbf{Y}};\theta=\theta_{0})$ برابر است با
+	\[
+	p(\tilde{\mathbf{Y}};\theta=\theta_{0})
+	=\Big(\tfrac{1}{2}\Big)^{2mn}.
+	\]
+	در نتیجه مؤلفه‌های $\tilde Y$ مستقل‌اند و
+	\[
+	\Pr\{\tilde y_{a}(t)=1\}=\Pr\{\tilde y_{a}(t)=-1\}=\tfrac{1}{2}.
+	\]
+	بنابراین
+	\[
+	\mathbb{E}\!\left[\prod_{t=1}^{n}\prod_{a=1}^{2m}\big(\tilde y_{a}(t)\big)^{\eta_{at}}\right]
+	=\begin{cases}
+		1, & \text{اگر همه‌ی $\eta_{at}$ها زوج باشند},\\[4pt]
+		0, & \text{در غیر این صورت}.
+	\end{cases} \tag{87}
+	\]
+	
+	اگر $z_{ij}(t)=y_{i}(t)y_{j}^{*}(t)$ باشد. با استفاده از رابطه‌ی بالا داریم
+	\begin{align}
+		\mathbb{E}\!\left[z_{ij}(t_{1})z_{ij}^{*}(t_{2})\right]&=4\,\delta_{t_{1}t_{2}}, \label{eq:B2}\\
+		\mathbb{E}\!\left[z_{ij}(t_{1})z_{ij}^{*}(t_{2})z_{kl}(t_{3})z_{kl}^{*}(t_{4})\right]
+		&=16\,\delta_{t_{1}t_{2}}\delta_{t_{3}t_{4}}
+		+16\,\delta_{ik}\delta_{jl}\,\delta_{t_{1}t_{4}}\delta_{t_{2}t_{3}}\,(1-\delta_{t_{1}t_{2}}\delta_{t_{3}t_{4}}), \label{eq:B3}
+	\end{align}
+	که در آن $1\le i<j\le m,\;1\le k<l\le m,\;1\le t_{1},t_{2},t_{3},t_{4}\le n$.
+	
+	\medskip
+	\noindent\textbf{گام ۱: محاسبه‌ی میانگین $T_{R}'$.}
+	
+	داشتیم‌:
+	\[
+	T_{R}'=\frac{1}{nm(m-1)}\,T_{R}.
+	\]
+	پس میانگین آن برابر است با
+	\begin{align}
+		\mu_{0}=\mathbb{E}[T_{R}']
+		&=\frac{1}{2m(m-1)}\sum_{i,j=1,\; i<j}^{m}\mathbb{E}\!\left[|\hat r_{ij}|^{2}\right] \notag \\
+		&=\frac{1}{2m(m-1)}\sum_{i,j=1,\; i<j}^{m}
+		\mathbb{E}\!\left[\frac{1}{n^{2}}\sum_{t_{1},t_{2}=1}^{n}z_{ij}(t_{1})z_{ij}^{*}(t_{2})\right] \notag \\
+		&=\frac{1}{2m(m-1)}\sum_{i,j=1,\; i<j}^{m}\frac{1}{n^{2}}\sum_{t_{1},t_{2}=1}^{n}\mathbb{E}[z_{ij}(t_{1})z_{ij}^{*}(t_{2})]. \label{eq:B4}
+	\end{align}
+	با استفاده از \eqref{eq:B2}، تنها حالت $t_{1}=t_{2}$ باقی می‌ماند و
+	\[
+	\mu_{0}=\frac{1}{n}.
+	\]
+	
+	\medskip
+	\noindent\textbf{گام ۲: محاسبه‌ی واریانس $T_{R}'$.}
+	
+	واریانس را به صورت زیر محاسبه می‌کنیم
+	\begin{align}
+		\sigma_{0}^{2}&=\mathbb{E}[(T_{R}')^{2}]-\mu_{0}^{2} \notag \\
+		&=\frac{1}{4m^{2}(m-1)^{2}}
+		\sum_{i,j,k,l=1 \atop i<j,\;k<l}^{m}\mathbb{E}\!\left[|\hat r_{ij}|^{2}\,|\hat r_{kl}|^{2}\right]-\mu_{0}^{2}. \label{eq:B5}
+	\end{align}
+	اکنون
+	\begin{align}
+		\mathbb{E}\!\left[|\hat r_{ij}|^{2}\,|\hat r_{kl}|^{2}\right]
+		&=\mathbb{E}\!\left[\frac{1}{n^{4}}\sum_{t_{1},t_{2},t_{3},t_{4}=1}^{n}
+		z_{ij}(t_{1})z_{ij}^{*}(t_{2})z_{kl}(t_{3})z_{kl}^{*}(t_{4})\right] \notag \\
+		&=\frac{1}{n^{4}}\sum_{t_{1},t_{2},t_{3},t_{4}=1}^{n}
+		\mathbb{E}\!\left[z_{ij}(t_{1})z_{ij}^{*}(t_{2})z_{kl}(t_{3})z_{kl}^{*}(t_{4})\right]. \label{eq:B6}
+	\end{align}
+	با جایگذاری \eqref{eq:B3} در رابطه‌ی بالا
+	\begin{equation}
+	\mathbb{E}\!\left[|\hat r_{ij}|^{2}\,|\hat r_{kl}|^{2}\right]
+	=\mathbb{E}[|\hat r_{ij}|^{2}]\,\mathbb{E}[|\hat r_{kl}|^{2}]
+	+\frac{16(n^{2}-n)}{n^{4}}\delta_{ik}\delta_{jl}. \tag{92}
+	\end{equation}
+	
+	با جایگذاری در \eqref{eq:B5} و ساده‌سازی 
+	\begin{equation}
+	\sigma_{0}^{2}=\frac{2(n-1)}{m(m-1)n^{3}}. \tag{93}
+	\end{equation}
+	
+	\medskip
+	\noindent\textbf{نتیجه:}  
+	تحت فرض $H_{0}$، آماره‌ی نرمالیزه‌شده‌ی $T_{R}'$ میانگین
+	$
+	\mu_{0}=\tfrac{1}{n}
+	$
+	و واریانس
+	$
+	\sigma_{0}^{2}=\tfrac{2(n-1)}{m(m-1)n^{3}}
+	$
+	دارد.
+		
+\end{اثبات}
+
+تابع توزیع تجمعی (CDF) توزیع بتا به صورت زیر تعریف می‌شود:
+\begin{equation}
+	F(x;\alpha,\beta)=
+	\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}\,
+	B(x;\alpha,\beta), \tag{41}
+\end{equation}
+که در آن تابع بتای ناقص برابر است با
+\begin{equation}
+	B(x;\alpha,\beta)=\int_{0}^{x} z^{\alpha-1}(1-z)^{\beta-1}\,dz, \tag{42}
+\end{equation}
+و $\Gamma(x)=\int_{0}^{+\infty} t^{x-1}e^{-t}\,dt$، برای $x>0$، تابع گاما است.  
+
+علاوه بر این، میانگین و واریانس یک توزیع بتا به صورت زیر قابل محاسبه است:
+\begin{equation}
+	\mu=\frac{\alpha}{\alpha+\beta}, 
+	\qquad
+	\sigma^{2}=\frac{\alpha\beta}{(\alpha+\beta)^{2}(\alpha+\beta+1)}. \label{eq:43}
+\end{equation}
+
+با تطبیق روابط \eqref{eq:43} با نتایج \eqref{eq:39} و \eqref{eq:40}، توزیع تقریبی \لر{Null} (فرض $H_0$) آماره‌ی $T_{R}'$ به صورت زیر به دست می‌آید:
+\begin{equation}
+	\Pr\{T_{R}'<\gamma\}\approx
+	\frac{\Gamma(\alpha_{0}+\beta_{0})}{\Gamma(\alpha_{0})\Gamma(\beta_{0})}\,
+	B(\gamma;\alpha_{0},\beta_{0}), \tag{44}
+\end{equation}
+که در آن
+\begin{align}
+	\alpha_{0}&=\frac{nm(m-1)-2}{2n}, \tag{45}\\
+	\beta_{0}&=\frac{(n-1)\big[nm(m-1)-2\big]}{2n}. \tag{46}
+\end{align}
+
+\قسمت{توزیع تحت فرض $H_1$}
+
+میانگین و واریانس 
+$T'_R$
+تحت فرض 
+$H_1$
+در قضیه‌ی زیر آمده است.
+\begin{قضیه}
+	تحت فرض
+	$H_1$،
+	میانگین و واریانس 
+	$T'_R$
+	به صورت زیر هستند.
+	\begin{equation}
+		\mu_1=\frac{1}{2m(m-1)}\sum_{i,j=1 \atop i<j}^{m}g_{ij}
+	\end{equation}
+	\begin{equation}
+		\sigma_1^2=\frac{1}{4m^2(m-1)^2}\sum_{i,j,k,l=1 \atop i<j,k<l}^{m} \left(f_{ijkl}-g_{ijkl}\right)
+	\end{equation}
+	که 
+	$g_{ij}$، $g_{ijkl}$
+	و 
+	$f_{ijkl}$
+	در اثباتی که در ادامه می‌آید تعریف می‌شوند.
+\end{قضیه}
+
+\begin{اثبات}
+	
+	با ترکیب حل‌های بسته برای «احتمال‌های \لر{orthant} مرکزی» مرتبهٔ دوم و سوم با \linebreak
+	$
+	p(\tilde{\mathbf{Y}};\boldsymbol{\theta})
+	= \prod_{t=1}^n p\bigl(\tilde{\mathbf{y}}(t);\boldsymbol{\theta}\bigr)
+	= \prod_{t=1}^n \phi\bigl[\mathbf{S}(t)\bigr]
+	$
+	به نتایج زیر می‌انجامد:
+	\begin{equation}
+		h_{ab}\;=\;\mathbb{E}\!\big[\tilde y_{a}(t)\,\tilde y_{b}(t)\big]
+		\;=\;\frac{2}{\pi}\,\arcsin \rho_{ab}, \label{eq:hab}
+	\end{equation}
+	و
+	\begin{equation}
+		\begin{aligned}
+			h_{abcd}\;=\;\mathbb{E}\!\big[\tilde y_{a}(t)\tilde y_{b}(t)\tilde y_{c}(t)\tilde y_{d}(t)\big]
+			\;=\;16\,P_{abcd}-1
+			-\big(h_{ab}+h_{ac}+h_{ad}+h_{bc}+h_{bd}+h_{cd}\big),
+		\end{aligned} \label{eq:habcd}
+	\end{equation}
+	که در آن \(1\le a\neq b\neq c\neq d\le 2m\) و
+	\begin{equation}
+		P_{abcd}\;=\;\Pr\!\left\{ \tilde x_{a}(t)>0,\;\tilde x_{b}(t)>0,\;\tilde x_{c}(t)>0,\;\tilde x_{d}(t)>0 \right\}.
+	\end{equation}
+	
+	با توجه به تقارن‌های ساختاری
+	\begin{equation}
+		\rho_{i'j'}=\rho_{ij},\qquad \rho_{i'j}=-\,\rho_{ij'}, \qquad 1\le i<j\le m,
+	\end{equation}
+	و استفاده از \eqref{eq:B1} و \eqref{eq:hab} و \eqref{eq:habcd} داریم
+	\begin{equation}
+		\mathbb{E}\!\big[z_{ij}(t)\big]=\mathbb{E}\!\big[y_i(t)y_j^{*}(t)\big]
+		=2\big(h_{ij}+\mathrm{i}\,h_{i'j}\big), \label{eq:Ezij}
+	\end{equation}
+	و امیدهای ضرب‌های دوتایی به‌صورت زیرند:
+	\begin{equation}
+		\mathbb{E}\!\big[z_{ij}(t)\,z_{kl}(t)\big]=
+		\begin{cases}
+			4\,h_{ii'jj'}, & i{=}k,\; j{=}l,\\[2pt]
+			2\!\left[h_{ii'jl'}+h_{ii'j'l}+\mathrm{i}\big(h_{ii'jl}-h_{ii'j'l'}\big)\right], & i{=}k,\; j\neq l,\\[2pt]
+			4\big(h_{kj}+\mathrm{i}\,h_{k'j}\big), & i{=}l,\\[2pt]
+			4\big(h_{il}+\mathrm{i}\,h_{i'l}\big), & j{=}k,\\[2pt]
+			2\!\left[h_{jj'ik'}+h_{jj'i'k}+\mathrm{i}\big(h_{jj'i'k'}-h_{jj'ik}\big)\right], & j{=}l,\; i\neq k,\\[2pt]
+			\upsilon_{1}(i,j,k,l)-\upsilon_{2}(i,j,k,l)
+			+\mathrm{i}\big[\upsilon_{3}(i,j,k,l)+\upsilon_{4}(i,j,k,l)\big], & i\neq j\neq k\neq l,
+		\end{cases} \label{eq:Ezijkl}
+	\end{equation}
+	و
+	\begin{equation}
+		\mathbb{E}\!\big[z_{ij}(t)\,z^{*}_{kl}(t)\big]=
+		\begin{cases}
+			4, & i{=}k,\; j{=}l,\\[2pt]
+			4\big(h_{lj}+\mathrm{i}\,h_{l'j}\big), & i{=}k,\; j\neq l,\\[2pt]
+			2\!\left[h_{ii'jk'}+h_{ii'j'k}+\mathrm{i}\big(h_{ii'jk}-h_{ii'j'k'}\big)\right], & i{=}l,\\[2pt]
+			2\!\left[h_{jj'il'}+h_{jj'i'l}+\mathrm{i}\big(h_{jj'i'l'}-h_{jj'il}\big)\right], & j{=}k,\\[2pt]
+			4\big(h_{ik}+\mathrm{i}\,h_{i'k}\big), & j{=}l,\; i\neq k,\\[2pt]
+			\upsilon_{1}(i,j,k,l)+\upsilon_{2}(i,j,k,l)
+			+\mathrm{i}\big[\upsilon_{3}(i,j,k,l)-\upsilon_{4}(i,j,k,l)\big], & i\neq j\neq k\neq l,
+		\end{cases}
+		\label{eq:Ezijklst}
+	\end{equation}
+	که در آن (برای \(1\le i<j\le m,\;1\le k<l\le m\))
+	\begin{subequations}
+		\begin{align}
+			\upsilon_{1}(i,j,k,l) &= h_{ijkl}+h_{ijk'l'}+h_{i'j'kl}+h_{i'j'k'l'}, \\
+			\upsilon_{2}(i,j,k,l) &= h_{i'jk'l}-h_{i'jkl'}-h_{ij'k'l}+h_{ij'kl'}, \\
+			\upsilon_{3}(i,j,k,l) &= h_{i'jkl}+h_{i'jk'l'}-h_{ij'kl}-h_{ij'k'l'}, \\
+			\upsilon_{4}(i,j,k,l) &= h_{ijk'l}-h_{ijkl'}+h_{i'j'k'l}-h_{i'j'kl'}.
+		\end{align}
+	\end{subequations}
+
+	
+	
+	\paragraph{میانگین.}
+	با یادآوری
+	\[
+	T_{R}'=\frac{1}{nm(m-1)}\,T_{R}
+	=\frac{1}{2m(m-1)}\sum_{i<j}\big|\hat r_{ij}\big|^{2},
+	\]
+	میانگین تحت \(H_{1}\) برابر است با
+	\begin{equation}
+		\mu_{1}
+		=\frac{1}{2m(m-1)}\sum_{i<j}\mathbb{E}\!\big[|\hat r_{ij}|^{2}\big]
+		=\frac{1}{2m(m-1)}\sum_{i<j} g_{ij},
+	\end{equation}
+	که
+	\begin{equation}
+		g_{ij}
+		=\frac{4}{n^{2}}\Big[n+A_{n,2}\big(h_{ij}^{2}+h_{i'j}^{2}\big)\Big].
+	\end{equation}
+	\textit{\color{BrickRed}{تذکر (تصحیح):}}
+	در متن مقاله برای \(A_{n,m}\) (تعداد جایگشت‌های بدون تکرارِ انتخاب \(m\) عنصر از \(n\) عنصر) به‌اشتباه فرمول دیگری نوشته شده بود. تعریف درست که در این‌جا به کار می‌بریم به صورت زیر است‌:
+	$$
+	A_{n,m}\;=\;\frac{n!}{(n-m)!}
+	$$
+	که در این اثبات 
+	$A_{n,2}=n(n-1)$
+	
+	\paragraph{واریانس.}
+	واریانس \(T_{R}'\) برابر است با
+	\begin{equation}
+		\sigma_{1}^{2}
+		=\frac{1}{4m^{2}(m-1)^{2}}
+		\sum_{i<j}\sum_{k<l}\!\left(
+		\mathbb{E}\!\big[|\hat r_{ij}|^{2}\,|\hat r_{kl}|^{2}\big]
+		-\mathbb{E}\!\big[|\hat r_{ij}|^{2}\big]\mathbb{E}\!\big[|\hat r_{kl}|^{2}\big]\right).
+	\end{equation}
+	چون مشاهدات زمانی مستقل‌اند، هرگاه
+	\(\delta_{t_{1}t_{2}}+\delta_{t_{3}t_{4}}\ge 1\) یا \(t_{1}\neq t_{2}\neq t_{3}\neq t_{4}\)،
+	داریم
+	\begin{equation}
+		\mathbb{E}\!\big[z_{ij}(t_{1})z_{ij}^{*}(t_{2})z_{kl}(t_{3})z_{kl}^{*}(t_{4})\big]
+		=\mathbb{E}\!\big[z_{ij}(t_{1})z_{ij}^{*}(t_{2})\big]\,
+		\mathbb{E}\!\big[z_{kl}(t_{3})z_{kl}^{*}(t_{4})\big].
+	\end{equation}
+	در نتیجه
+	\begin{equation}
+		\begin{aligned}
+			\mathbb{E}\!\big[|\hat r_{ij}|^{2}\,|\hat r_{kl}|^{2}\big]
+			&=\mathbb{E}\!\big[|\hat r_{ij}|^{2}\big]\,
+			\mathbb{E}\!\big[|\hat r_{kl}|^{2}\big]
+			+\frac{1}{n^{4}}\!\!\sum_{(t_{1},t_{2},t_{3},t_{4})\in\mathcal{T}}
+			\!\!\mathbb{E}\!\big[z_{ij}(t_{1})z_{ij}^{*}(t_{2})z_{kl}(t_{3})z_{kl}^{*}(t_{4})\big]\\
+			&\hspace{2.6cm}
+			-\frac{1}{n^{4}}\!\!\sum_{(t_{1},t_{2},t_{3},t_{4})\in\mathcal{T}}
+			\!\!\mathbb{E}\!\big[z_{ij}(t_{1})z_{ij}^{*}(t_{2})\big]\,
+			\mathbb{E}\!\big[z_{kl}(t_{3})z_{kl}^{*}(t_{4})\big],
+		\end{aligned}
+	\end{equation}
+	که در آن
+	\[
+	\mathcal{T}=\big\{(a,b,c,d)\,\big|\,\delta_{ab}+\delta_{cd}=0,\;\;
+	\delta_{ac}+\delta_{ad}+\delta_{bc}+\delta_{bd}\ge 1\big\}. \qquad (107)
+	\]
+	پس از جایگذاری \eqref{eq:Ezij} و \eqref{eq:Ezijkl} و \eqref{eq:Ezijklst} و ساده‌سازی، خواهیم داشت
+	\begin{equation}
+		\mathbb{E}\!\big[|\hat r_{ij}|^{2}\,|\hat r_{kl}|^{2}\big]
+		=\mathbb{E}\!\big[|\hat r_{ij}|^{2}\big]\,
+		\mathbb{E}\!\big[|\hat r_{kl}|^{2}\big]
+		+ f_{ijkl}-g_{ijkl},
+	\end{equation}
+	که
+	\begin{equation}
+		g_{ijkl}=\frac{32(n-1)(2n-3)}{n^{3}}\,
+		\big(h_{ij}^{2}+h_{i'j}^{2}\big)\big(h_{kl}^{2}+h_{k'l}^{2}\big),
+	\end{equation}
+	و
+	\begin{equation}
+		f_{ijkl}=
+		\begin{cases}
+			\tau_{1}(i,j), & i{=}k,\; j{=}l,\\[2pt]
+			\tau_{2}(i,j,l), & i{=}k,\; j\neq l,\\[2pt]
+			\tau_{2}(i,j,k), & i{=}l,\\[2pt]
+			\tau_{2}(j,i,l), & j{=}k,\\[2pt]
+			\tau_{2}(j,i,k), & j{=}l,\; i\neq k,\\[2pt]
+			\tau_{3}(j,i,k,l), & i\neq j\neq k\neq l,
+		\end{cases}
+	\end{equation}
+	با
+	\begin{equation}
+		\tau_{1}(i,j)=\frac{16}{n^{4}}A_{n,2}\!\left[1+h^{2}_{ii'jj'}\right]
+		+\frac{32}{n^{4}}A_{n,3}\!\left[\big(h_{ij}^{2}+h_{i'j}^{2}\big)+h_{ii'jj'}\big(h_{ij}^{2}-h_{i'j}^{2}\big)\right],
+	\end{equation}
+	\begin{equation}
+		\begin{aligned}
+			\tau_{2}(i,j,k)=\frac{4}{n^{4}}A_{n,2}&\Big(4\big(h_{jk}^{2}+h_{jk'}^{2}\big)
+			+\big(h_{ii'jk'}+h_{ii'j'k}\big)^{2}
+			+\big(h_{ii'jk}-h_{ii'j'k'}\big)^{2}\Big)\\
+			+\frac{16}{n^{4}}A_{n,3}&\Big(
+			\big(h_{ii'jk}-h_{ii'j'k'}\big)(h_{ik}h_{i'j}+h_{ij}h_{i'k})
+			+\big(h_{ii'jk'}+h_{ii'j'k}\big)(h_{ik}h_{ij}-h_{i'j}h_{i'k})\\
+			&\quad+2h_{jk}(h_{ik}h_{ij}+h_{i'j}h_{i'k})
+			+2h_{jk'}(h_{ik}h_{i'j}-h_{ij}h_{i'k})\Big),
+		\end{aligned}
+	\end{equation}
+	و
+	\begin{equation}
+		\begin{aligned}
+			\tau_{3}(i,j,k,l)=\frac{2}{n^{4}}A_{n,2}\sum_{t=1}^{4}\upsilon_{t}^{2}(i,j,k,l)
+			+\frac{16}{n^{4}}A_{n,3}\Big(
+			&\upsilon_{1}(i,j,k,l)\,h_{ij}h_{kl}
+			+\upsilon_{2}(i,j,k,l)\,h_{i'j}h_{k'l}\\
+			&+\upsilon_{3}(i,j,k,l)\,h_{kl}h_{i'j}
+			+\upsilon_{4}(i,j,k,l)\,h_{ij}h_{k'l}
+			\Big).
+		\end{aligned}
+	\end{equation}
+	
+	در نهایت،
+	\begin{equation}
+		\sigma_{1}^{2}
+		=\frac{1}{4m^{2}(m-1)^{2}}
+		\sum_{i<j}\sum_{k<l}\big(f_{ijkl}-g_{ijkl}\big),
+	\end{equation}
+	که همان بیان واریانس \(\,T_{R}'\,\) تحت \(H_{1}\) است. 
+	
+\end{اثبات}
+
+مشابه حالت $H_{0}$، تابع توزیع تجمعی (CDF) آماره‌ی $T_{R}'$ تحت $H_{1}$ نیز می‌تواند با یک توزیع بتا تقریب زده شود:
+\begin{equation}
+	\Pr\{T_{R}' < \gamma\} \;\approx\;
+	\frac{\Gamma(\alpha_{1}+\beta_{1})}{\Gamma(\alpha_{1})\,\Gamma(\beta_{1})}\,
+	B(\gamma;\alpha_{1},\beta_{1}),
+\end{equation}
+که در آن
+\begin{align}
+	\alpha_{1}&=\frac{\mu_{1}\big(\mu_{1}-\mu_{1}^{2}-\sigma_{1}^{2}\big)}{\sigma_{1}^{2}},
+\end{align}
+\begin{align}
+	\beta_{1}&=\frac{(1-\mu_{1})\big(\mu_{1}-\mu_{1}^{2}-\sigma_{1}^{2}\big)}{\sigma_{1}^{2}}.
+\end{align}

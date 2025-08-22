@@ -1,0 +1,439 @@
+\فصل{به دست آوردن تست \لر{Rao}}
+
+در مسائل تشخیص با پارامترهای نامعلوم، تست \لر{GLRT} به دلیل عملکرد بهینه‌ی مجانبی و نتایج مناسب حتی در شرایط با داده‌های محدود، پرکاربردترین روش محسوب می‌شود. با این حال، زمانی که داده‌های کوانتیزه‌ی تک‌بیتی به کار گرفته می‌شوند، حل عددی \لر{MLE}\پانویس{Maximum likelihood estimation} ضروری است، زیرا \لر{likelihood} تحت فرض
+$H_1$
+فرم بسته ندارد و این امر پیچیدگی محاسباتی ایجاد می‌کند. تست‌های \لر{Wald} و \لر{Rao} به عنوان جایگزین‌های GLRT همان عملکرد مجانبی را ارائه می‌دهند و در کاربردهای مختلف نتایج رضایت‌بخشی داشته‌اند. با وجود این، تست \لر{Wald} نیز نیازمند حل \لر{MLE} تحت فرض 
+$H_1$
+است، در حالی‌ که تست \لر{Rao} بدون نیاز به حل \لر{MLE} به ساختارهای ساده‌تر و کاراتر به‌ویژه در حالتی که فرض 
+$H_0$
+ساده است، منجر می‌شود. از این‌رو، در طراحی آشکارساز حاضر، تست \لر{Rao} انتخاب شده است.
+
+برای سادگی در محاسبات، ابتدا مشاهدات را به صورت زیر تنظیم می‌کنیم:
+\begin{equation}
+	\tilde{\mathbf{Y}}=[\tilde{\mathbf{y}}(1), ..., \tilde{\mathbf{y}}(n)]
+\end{equation}
+که 
+$\tilde{\mathbf{y}}(t)$
+در فصل قبل تعریف شد. \\
+اگر 
+$\tilde{\mathbf{y}}$
+را یک نمونه از فضای حالات مختلف 
+$\tilde{\mathbf{y}}(t)$
+در نظر بگیریم، 
+$2^{2m}$
+حالت خواهد داشت که \linebreak
+$\tilde{\mathbf{y}}^k(k=0, 1, ..., 2^{2m}-1)$
+نمایانگر هریک از این حالات خواهد بود. \\
+همچنین
+$\mathbb{X}_k$
+را به عنوان زیرمجموعه‌ای از 
+$\mathbb{R}^{2m\times1}$
+تعریف می‌کنیم که به کوانتیزاسیون تک‌بیتی 
+$\tilde{\mathbf{y}}^k$
+به صورت زیر نگاشت می‌شود:
+\begin{equation}
+	\mathbb{X}_k=\{\mathbf{x}\in\mathbb{R}^{2m\times1}|\mathrm{sign}(\mathbf{x})=\tilde{\mathbf{y}}^k\}=\{\mathbf{x}\in\mathbb{R}^{2m\times1}|\mathrm{diag}(\tilde{\mathbf{y}}^k)\mathbf{x}>0\}
+\end{equation}
+پس احتمال این که 
+$\tilde{\mathbf{y}}(t)=\tilde{\mathbf{y}}^k$
+باشد برابر است با :
+\begin{equation}
+	\mathrm{Pr}\{\tilde{\mathbf{y}}(t)=\tilde{\mathbf{y}}^k\}=\mathrm{Pr}\{\tilde{\mathbf{x}}\in\mathbb{X}_k\}=\int_{\mathbb{X}_k} \frac{1}{\left(2\pi\right)^m\left|\mathbf{R}_{\tilde{\mathbf{x}}}\right|^{\frac{1}{2}}}e^{-\frac{1}{2}\tilde{\mathbf{x}}^T\mathbf{R}_{\tilde{\mathbf{x}}}^{-1}\tilde{\mathbf{x}}} d\tilde{\mathbf{x}}
+	\label{eq:1}
+\end{equation}
+با تغییر متغیر
+$\tilde{\mathbf{x}}\rightarrow\tilde{\mathbf{\tau}}=\mathrm{Diag}\left(\mathbf{R}_{\tilde{\mathbf{x}}}\right)^{-\frac{1}{2}}\tilde{\mathbf{x}}$
+داریم:
+\begin{equation}
+	\{\tilde{\mathbf{\tau}}\in\mathbb{R}^{2m\times1}|\mathrm{diag}(\tilde{\mathbf{y}}^k)\mathrm{Diag}\left(\mathbf{R}_{\tilde{\mathbf{x}}}\right)^{\frac{1}{2}}\tilde{\boldsymbol{\tau}}>0\}
+\end{equation}
+$$J=\left|\mathrm{Diag}(\mathbf{R}_{\tilde{\mathbf{x}}})^{\frac{1}{2}}\right|$$
+\begin{equation}
+	\mathrm{Pr}\{\tilde{\mathbf{y}}(t)=\tilde{\mathbf{y}}^k\}=\mathrm{Pr}\{\tilde{\mathbf{x}}\in\mathbb{X}_k\}=\int_{\mathbb{X}_k} \frac{1}{\left(2\pi\right)^m\left|\mathbf{P}\right|^{\frac{1}{2}}}e^{-\frac{1}{2}\tilde{\boldsymbol{\tau}}^T\mathbf{P}^{-1}\tilde{\boldsymbol{\tau}}} d\tilde{\boldsymbol{\tau}}
+	\label{eq:2}
+\end{equation}
+جزئیات و اثبات رسیدن به
+\eqref{eq:2}
+از 
+\eqref{eq:1}
+که در مقاله به آن اشاره‌ای نشده است، در ادامه می‌آید.\\
+ابتدا تبدیل مختصات زیر را تعریف می‌کنیم:
+\begin{align}
+	\mathbf{D} &\coloneqq \mathrm{Diag}(\mathbf{R}_{\tilde{\mathbf{x}}}), \qquad
+	\mathbf{P} \coloneqq \mathbf{D}^{-1/2}\mathbf{R}_{\tilde{\mathbf{x}}}\mathbf{D}^{-1/2}, \qquad
+	\tilde{\boldsymbol{\tau}} \coloneqq \mathbf{D}^{-1/2}\tilde{\mathbf{x}},
+\end{align}
+که در نتیجه داریم:
+\begin{align}
+	\tilde{\mathbf{x}} = \mathbf{D}^{1/2}\tilde{\boldsymbol{\tau}}, \qquad
+	d\tilde{\mathbf{x}} = |\mathbf{D}^{1/2}|\,d\tilde{\boldsymbol{\tau}}
+	= |\mathbf{D}|^{1/2} d\tilde{\boldsymbol{\tau}}, \qquad
+	\mathbb{X}_k = \Bigl\{ \tilde{\boldsymbol{\tau}} \,\Big|\, \mathrm{diag}(\tilde{\mathbf{y}}^{\,k})\mathbf{D}^{1/2}\tilde{\boldsymbol{\tau}} > \mathbf{0} \Bigr\}.
+\end{align}
+
+اکنون جمله نمایی را بازنویسی می‌کنیم:
+\begin{align}
+	\tilde{\mathbf{x}}^{\!\top}\mathbf{R}_{\tilde{\mathbf{x}}}^{-1}\tilde{\mathbf{x}}
+	&= (\mathbf{D}^{1/2}\tilde{\boldsymbol{\tau}})^{\!\top}
+	\bigl(\mathbf{D}^{-1/2}\mathbf{P}^{-1}\mathbf{D}^{-1/2}\bigr)
+	(\mathbf{D}^{1/2}\tilde{\boldsymbol{\tau}})
+	= \tilde{\boldsymbol{\tau}}^{\!\top}\mathbf{P}^{-1}\tilde{\boldsymbol{\tau}}.
+\end{align}
+
+برای تعیین دترمینان داریم:
+\begin{align}
+	|\mathbf{R}_{\tilde{\mathbf{x}}}|
+	&= \bigl|\mathbf{D}^{1/2}\mathbf{P}\mathbf{D}^{1/2}\bigr|
+	= |\mathbf{D}|\,|\mathbf{P}|
+	\quad\Longrightarrow\quad
+	\frac{|\mathbf{D}|^{1/2}}{|\mathbf{R}_{\tilde{\mathbf{x}}}|^{1/2}}
+	= \frac{1}{|\mathbf{P}|^{1/2}}.
+\end{align}
+
+حال معادله \eqref{eq:1} به‌صورت زیر بازنویسی می‌شود:
+\begin{align}
+	\Pr\{\tilde{\mathbf{y}}(t)=\tilde{\mathbf{y}}^{\,k}\}
+	&=\int_{\mathbb{X}_k}\frac{1}{(2\pi)^m\,|\mathbf{R}_{\tilde{\mathbf{x}}}|^{1/2}}
+	\exp\!\left(-\tfrac{1}{2}\tilde{\mathbf{x}}^{\!\top}\mathbf{R}_{\tilde{\mathbf{x}}}^{-1}\tilde{\mathbf{x}}\right)\,d\tilde{\mathbf{x}} \notag \\[6pt] 
+	&=\int_{\mathbb{X}_k}\frac{|\mathbf{D}|^{1/2}}{(2\pi)^m\,|\mathbf{R}_{\tilde{\mathbf{x}}}|^{1/2}}
+	\exp\!\left(-\tfrac{1}{2}\tilde{\boldsymbol{\tau}}^{\!\top}\mathbf{P}^{-1}\tilde{\boldsymbol{\tau}}\right)\,d\tilde{\boldsymbol{\tau}} \notag \\[6pt]
+	&=\int_{\mathbb{X}_k}\frac{1}{(2\pi)^m\,|\mathbf{P}|^{1/2}}
+	\exp\!\left(-\tfrac{1}{2}\tilde{\boldsymbol{\tau}}^{\!\top}\mathbf{P}^{-1}\tilde{\boldsymbol{\tau}}\right)\,d\tilde{\boldsymbol{\tau}}.
+\end{align}
+
+تعریف می‌کنیم:
+\begin{align}
+	\boldsymbol{\zeta}_k = \mathrm{diag}(\tilde{\mathbf{y}}^{\,k})\tilde{\boldsymbol{\tau}},
+\end{align}
+بنابراین داریم:
+\begin{align}
+	\Pr\{\tilde{\mathbf{y}}(t)=\tilde{\mathbf{y}}^{\,k}\}
+	&= \int_{0}^{\infty}\!\!\cdots\!\!\int_{0}^{\infty}
+	\frac{1}{(2\pi)^m\,|\mathbf{P}|^{1/2}}
+	\exp\!\left(-\tfrac12\boldsymbol{\zeta}_k^{\!\top}\mathbf{S}_k^{-1}\boldsymbol{\zeta}_k\right)\,\mathrm{d}\boldsymbol{\zeta}_k \notag \\
+	&= \int_{0}^{\infty}\!\!\cdots\!\!\int_{0}^{\infty}
+	\frac{1}{(2\pi)^m\,|\mathbf{P}|^{1/2}}
+	\exp\!\left(-\tfrac12\tilde{\mathbf{x}}^{\!\top}\mathbf{S}_k^{-1}\tilde{\mathbf{x}}\right)\,\mathrm{d}\tilde{\mathbf{x}},
+\end{align}
+که در آن:
+\begin{align}
+	\mathbf{S}_k = \mathrm{diag}(\tilde{\mathbf{y}}^{\,k})\mathbf{P}\,\mathrm{diag}(\tilde{\mathbf{y}}^{\,k}).
+\end{align}
+
+از آنجایی که
+$|\mathbf{S}_k| = |\mathbf{P}|$،
+بنابراین:
+\begin{align}
+	\Pr\{\tilde{\mathbf{y}}(t)=\tilde{\mathbf{y}}^{\,k}\} 
+	= \phi[\mathbf{S}_k],
+\end{align}
+که تابع
+$\phi(\cdot)$
+ به صورت زیر تعریف می‌شود:
+\begin{align}
+	\phi[\mathbf{\Sigma}]
+	= \int_{0}^{\infty}\cdots\int_{0}^{\infty}
+	\frac{1}{(2\pi)^m\,|\mathbf{\Sigma}|^{1/2}}
+	\exp\!\left(-\tfrac12\mathbf{x}^T\mathbf{\Sigma}^{-1}\mathbf{x}\right)\,\mathrm{d}\mathbf{x},
+\end{align}
+که همان «احتمال \لر{Orthant} مرکزی» است.
+
+تابع likelihood برای
+$\tilde{\mathbf{Y}}$
+به صورت زیر خواهد بود:
+\begin{align}
+	p(\tilde{\mathbf{Y}};\boldsymbol{\theta})
+	&= \prod_{t=1}^n p\bigl(\tilde{\mathbf{y}}(t);\boldsymbol{\theta}\bigr)
+	= \prod_{t=1}^n \phi\bigl[\mathbf{S}(t)\bigr],
+\end{align}
+که در آن:
+\begin{align}
+	\mathbf{S}(t)=\mathrm{diag}(\tilde{\mathbf{y}}(t))\,\mathbf{P}\,\mathrm{diag}(\tilde{\mathbf{y}}(t)).
+\end{align}
+
+بنابراین \لر{log-likelihood} به صورت زیر خواهد بود:
+\begin{align}
+	\mathcal{L}(\tilde{\mathbf{Y}};\boldsymbol{\theta})
+	= \sum_{t=1}^n \log\left(\phi\bigl[\mathbf{S}(t)\bigr]\right).
+\end{align}
+
+آماره‌ی تست \لر{Rao} به صورت زیر تعریف می‌شود:
+\begin{align}
+	T_R 
+	= \left(
+	\frac{\partial\mathcal{L}(\tilde{\mathbf{Y}};\boldsymbol{\theta})}{\partial\boldsymbol{\theta}}
+	\Big|_{\boldsymbol{\theta}=\boldsymbol{\theta}_0}
+	\right)^T
+	\mathbf{F}^{-1}(\boldsymbol{\theta}_0)
+	\left(
+	\frac{\partial\mathcal{L}(\tilde{\mathbf{Y}};\boldsymbol{\theta})}{\partial\boldsymbol{\theta}}
+	\Big|_{\boldsymbol{\theta}=\boldsymbol{\theta}_0}
+	\right),
+\end{align}
+که در آن
+$\boldsymbol{\theta}_0=\mathbf{0}\in\mathbb{R}^{(m^2-m)\times1}$
+مربوط به پارامترها تحت فرض
+$H_0$
+است و
+$\mathbf{F}(\boldsymbol{\theta})$،
+\لر{FIM}\پانویس{Fisher information matrix} است که به شکل زیر تعریف می‌شود:
+\begin{align}
+	\mathbf{F}(\boldsymbol{\theta})
+	= \mathbb{E}\!\left[
+	\frac{\partial\mathcal{L}(\tilde{\mathbf{Y}};\boldsymbol{\theta})}{\partial\boldsymbol{\theta}}
+	\frac{\partial\mathcal{L}(\tilde{\mathbf{Y}};\boldsymbol{\theta})}{\partial\boldsymbol{\theta}^T}
+	\right].
+\end{align}
+\begin{قضیه}
+	آماره‌ی \ \لر{Rao} مربوط به تست فرض ما به صورت زیر است:
+	\begin{equation}
+		T_R=\frac{n}{2}\sum_{\substack{i,j=1\\i<j}}^{m} \left|\hat{r}_{ij}\right|^2
+	\end{equation}
+	که 
+	$\hat{r}_{ij}$
+	المان 
+	$(i,j)$
+	از \لر{SCM}\پانویس{Sample covariance matrix} تک‌بیتی مختلط است که به صورت زیر تعریف می‌شود:
+	\begin{equation}
+		\hat{\mathbf{R}}_\mathbf{y}=\frac{1}{n}\sum_{t=1}^{n} \mathbf{y}(t)\mathbf{y}^H(t) \label{eq:SCMRy}
+	\end{equation}
+\end{قضیه}
+\begin{اثبات}
+
+داریم :
+	\begin{align}
+		\phi[\mathbf{I}_{2m}]
+		&= \int_{0}^{\infty}\cdots\int_{0}^{\infty}
+		\frac{1}{(2\pi)^m\,|\mathbf{I}_{2m}|^{1/2}}
+		\exp\!\left(-\tfrac12\mathbf{x}^{\!\top}\mathbf{I}_{2m}^{-1}\mathbf{x}\right)\,\mathrm{d}\mathbf{x} \notag \\
+		&=\int_{0}^{\infty}\cdots\int_{0}^{\infty}
+		\frac{1}{(2\pi)^m}
+		\exp\!\left(-\tfrac12\mathbf{x}^T\mathbf{x}\right)\,\mathrm{d}\mathbf{x} \notag \\
+		&=\frac{1}{(2\pi)^m}\int_{0}^{\infty}\cdots\int_{0}^{\infty}
+		\exp\!\left(-\tfrac12\left[x_1^2+...+x_{2m}^2\right]\right)\,\mathrm{d}\mathbf{x} \notag \\
+		&=\int_{0}^{\infty}\frac{1}{\sqrt{2\pi}}
+		\exp\!\left(-\tfrac12x_1^2\right)\,\mathrm{d}\mathbf{x}_1\cdots\int_{0}^{\infty}\frac{1}{\sqrt{2\pi}}
+		\exp\!\left(-\tfrac12x_{2m}^2\right)\,\mathrm{d}\mathbf{x}_{2m}= \notag \\
+		&\rightarrow\phi[\mathbf{I}_{2m}]=\left(\frac{1}{2}\right)^{2m}
+	\end{align}
+	در نتیجه برای حالت
+	$\theta=\theta_0=0$
+	خواهیم داشت:
+	\begin{equation}
+		\mathcal{L}(\tilde{\mathbf{Y}};\boldsymbol{\theta}=0)
+		= \sum_{t=1}^n \log\left(\phi\bigl[\mathbf{I}_{2m}\bigr]\right)= \sum_{t=1}^n \log\bigl(\left(\frac{1}{2}\right)^{2m}\bigr)=-2mn\log\left(2\right)
+	\end{equation}
+
+	
+	اکنون
+	\(\phi[\mathbf{\Sigma}]\) 
+	را با یک تبدیل مختصاتی مبتنی بر ماتریس جایگشتی به صورت
+	\(\mathbf{x}\rightarrow\mathbf{y}=\mathbf{E}_{ab}\mathbf{x}\)
+	 بازنویسی می‌کنیم.
+	\(\mathbf{E}_{ab}\)
+	 ماتریسی همانی است که ردیف‌های \(a\) و \(b\) آن جابجا شده است؛
+	در این صورت
+	\(\mathbf{E}_{ab}^{-1}=\mathbf{E}_{ab}\)
+	و 
+	\(|\mathbf{E}_{ab}|=\pm1\).
+	از آن‌جایی که برای
+	\(a=b\)، \(|\mathbf{E}_{ab}|=-1\) 
+	 و برای
+	\(a\neq b\)، \(|\mathbf{E}_{ab}|=+1\) 
+	 است، مقدار مطلق دترمینان ژاکوبین همیشه ۱ است. پس داریم :
+	\begin{align}
+		\phi[\mathbf{\Sigma}]&=\int_{\mathbb{R}^{2m}_+}\frac{1}{(2\pi)^m\,|\mathbf{\Sigma}|^{1/2}}
+		\exp\!\Big(-\tfrac{1}{2}\left(\mathbf{E}_{ab}^{-1}y\right)^{T}\mathbf{\Sigma}^{-1}\left(\mathbf{E}_{ab}^{-1}y\right)\Big)\,dy \notag \\
+		&=\int_{\mathbb{R}^{2m}_+}\frac{1}{(2\pi)^m\,|\mathbf{\Sigma}|^{1/2}}
+		\exp\!\Big(-\tfrac{1}{2}y^{T}(\mathbf{E}_{ab}\mathbf{\Sigma} \mathbf{E}_{ab})^{-1}y\Big)\,dy \notag \\
+		&=\int_{\mathbb{R}^{2m}_+}\frac{1}{(2\pi)^m\,|\mathbf{E}_{ab}\mathbf{\Sigma} \mathbf{E}_{ab}|^{1/2}}
+		\exp\!\Big(-\tfrac{1}{2}y^{T}(\mathbf{E}_{ab}\mathbf{\Sigma} \mathbf{E}_{ab})^{-1}y\Big)\,dy
+		=\phi[\mathbf{E}_{ab}\mathbf{\Sigma} \mathbf{E}_{ab}],
+	\end{align}
+	و نتیجه‌ی زیر به دست می‌آید.
+	\begin{equation}
+	\phi[\mathbf{\Sigma}]=\phi[\mathbf{E}_{ab}\mathbf{\Sigma} \mathbf{E}_{ab}].
+	\end{equation}
+	
+	اکنون عملگر زیر را تعریف می‌کنیم
+	\[
+	\mathbf{T}_1(i,j)=\mathbf{E}_{4,j'}\,\mathbf{E}_{3,i'}\,\mathbf{E}_{2,j}\,\mathbf{E}_{1,i},\qquad 1\le i<j\le m,\quad
+	\{i',j'\}=\{i,j\}+m.
+	\]
+	با استفاده از رابطهٔ بالا، می‌توان نوشت
+	\begin{equation}
+	\phi[\mathbf{S}(t)]=\phi\!\big(\mathbf{T}_1(i,j)\,S(t)\,\mathbf{T}_1^{T}(i,j)\big).
+	\end{equation}
+	برای \(\theta=\theta_{i,j}\) (یعنی تنها \(\rho_{ij}\) غیرصفر است)، ماتریس داخل \(\phi\) به صورت بلوکی در می‌آید:
+	\begin{equation}
+	\mathbf{T}_1(i,j)\,\mathbf{S}(t)\,\mathbf{T}_1^{T}(i,j)=
+	\begin{bmatrix}
+		\mathbf{S}_{ij}(t) & 0 & 0\\[2pt]
+		0 & \mathbf{S}_{i'j'}(t) & 0\\[2pt]
+		0 & 0 & I_{2m-4}
+	\end{bmatrix},
+	\end{equation}
+	که در آن
+	\begin{equation}
+	\mathbf{S}_{ab}(t)=
+	\begin{bmatrix}
+		1 & \tilde y_a(t)\tilde y_b(t)\,\rho_{ab}\\[2pt]
+		\tilde y_a(t)\tilde y_b(t)\,\rho_{ab} & 1
+	\end{bmatrix}.
+	\end{equation}
+	بنابراین
+	\begin{equation}
+	\phi[\mathbf{S}(t)]\Big|_{\theta=\theta_{i,j}}
+	=\phi\!\big(\mathbf{S}_{ij}(t)\big)\,\phi\!\big(\mathbf{S}_{i'j'}(t)\big)\,\phi[I_{2m-4}].
+	\end{equation}
+	
+	به‌طور مشابه، اگر
+	\[
+	\mathbf{T}_2(i,j)=\mathbf{E}_{4,j'}\,\mathbf{E}_{3,i}\,\mathbf{E}_{2,j}\,\mathbf{E}_{1,i'},
+	\]
+	آنگاه برای \(\theta=\theta_{i',j}\) خواهیم داشت
+	\begin{equation}
+	\phi[\mathbf{S}(t)]\Big|_{\theta=\theta_{i',j}}
+	=\phi\!\big(\mathbf{S}_{i'j}(t)\big)\,\phi\!\big(\mathbf{S}_{ij'}(t)\big)\,\phi[I_{2m-4}].
+	\end{equation}
+	
+	از سوی دیگر، هر \(\phi[\mathbf{S}_{ab}(t)]\) احتمال اورتان مرکزی یک گاوسی دوبُعدیِ صفرمیانگین با کوواریانس \(\mathbf{S}_{ab}(t)\) است و مقدار بستهٔ آن
+	\begin{equation}
+	\phi\!\big(\mathbf{S}_{ab}(t)\big)
+	=\frac{1}{4}+\frac{1}{2\pi}\,\arcsin\!\big(\tilde y_a(t)\tilde y_b(t)\,\rho_{ab}\big)
+	\end{equation}
+	می‌باشد. لذا
+	\begin{align}
+	\mathcal{L}(\tilde Y;\theta=\theta_{i,j})
+	&=\sum_{t=1}^{n}\log\!\Big(\phi\!\big(\mathbf{S}_{ij}(t)\big)\,\phi\!\big(\mathbf{S}_{i'j'}(t)\big)\,\phi[I_{2m-4}]\Big) \notag \\
+	&=\sum_{t=1}^{n}\log\!\big(f_1(i,j,t)\big)-(2m-4)\,n\log(2),
+	\end{align}
+	و نیز
+	\begin{align}
+	\mathcal{L}(\tilde Y;\theta=\theta_{i',j})
+	&=\sum_{t=1}^{n}\log\!\Big(\phi\!\big(\mathbf{S}_{i'j}(t)\big)\,\phi\!\big(\mathbf{S}_{ij'}(t)\big)\,\phi[I_{2m-4}]\Big) \notag \\
+	&=\sum_{t=1}^{n}\log\!\big(f_2(i,j,t)\big)-(2m-4)\,n\log(2),
+	\end{align}
+	که در آن با توجه به \(\rho_{i'j'}=\rho_{ij}\) و \(\rho_{ij'}=-\rho_{i'j}\):
+	\begin{equation}
+	f_1(i,j,t)=\Big(\tfrac{1}{4}+\tfrac{1}{2\pi}\,\tilde y_i(t)\tilde y_j(t)\,\arcsin\rho_{ij}\Big)
+	\Big(\tfrac{1}{4}+\tfrac{1}{2\pi}\,\tilde y_{i'}(t)\tilde y_{j'}(t)\,\arcsin\rho_{ij}\Big),
+	\end{equation}
+	\begin{equation}
+	f_2(i,j,t)=\Big(\tfrac{1}{4}+\tfrac{1}{2\pi}\,\tilde y_{i'}(t)\tilde y_{j}(t)\,\arcsin\rho_{i'j}\Big)
+	\Big(\tfrac{1}{4}+\tfrac{1}{2\pi}\,\tilde y_{i}(t)\tilde y_{j'}(t)\,\arcsin(-\rho_{i'j})\Big).
+	\end{equation}
+	
+	اکنون با استفاده از تعریف مشتقِ جزئی و قاعدهٔ لوپیتال، مشتق‌های گرادیان را در صفر به‌دست می‌آوریم:
+	\begin{align}
+	\left.\frac{\partial \mathcal{L}(\tilde Y;\theta)}{\partial \rho_{ij}}\right|_{\theta=0}
+	&=\lim_{\rho_{ij}\to 0}\frac{\mathcal{L}(\tilde Y;\theta=\theta_{i,j})-\mathcal{L}(\tilde Y;\theta=0)}{\rho_{ij}} \notag \\
+	&=\frac{2}{\pi}\sum_{t=1}^{n}\big(\tilde y_i(t)\tilde y_j(t)+\tilde y_{i'}(t)\tilde y_{j'}(t)\big)
+	=\frac{2n}{\pi}\,\mathrm{Re}\{\hat r_{ij}\},
+	\end{align}
+	\begin{align}
+	\left.\frac{\partial \mathcal{L}(\tilde Y;\theta)}{\partial \rho_{i'j}}\right|_{\theta=0}
+	&=\lim_{\rho_{i'j}\to 0}\frac{\mathcal{L}(\tilde Y;\theta=\theta_{i',j})-\mathcal{L}(\tilde Y;\theta=0)}{\rho_{i'j}} \notag \\
+	&=\frac{2}{\pi}\sum_{t=1}^{n}\big(\tilde y_{i'}(t)\tilde y_{j}(t)-\tilde y_{i}(t)\tilde y_{j'}(t)\big)
+	=\frac{2n}{\pi}\,\mathrm{Im}\{\hat r_{ij}\},
+	\end{align}
+	که در آن،
+	$
+	\hat r_{ij}
+	$
+	المان 
+	$(i, j)$
+	از \لر{SCM} تعریف شده در \eqref{eq:SCMRy} است.\\
+	با تعریف
+	\[
+	\hat{\mathbf{r}}=\big[\hat r_{1,2},\hat r_{1,3},\hat r_{2,3},\ldots,\hat r_{m-1,m}\big]^{T},\qquad
+	\tilde{\mathbf{r}}=\big[\mathrm{Re}(\hat r)^{T},\,\mathrm{Im}(\hat r)^{T}\big]^{T},
+	\]
+	رابطهٔ گرادیان به صورت فشرده
+	\begin{equation}
+	\left.\frac{\partial \mathcal{L}(\tilde Y;\theta)}{\partial \theta}\right|_{\theta=\theta_0}
+	=\frac{2n}{\pi}\,\tilde{\mathbf{r}}
+	\end{equation}
+	درمی‌آید.
+	
+	ماتریس اطلاعات فیشر (\لر{FIM})
+	\[
+	\mathbf{F}(\theta)=\mathbb{E}\!\left[\frac{\partial \mathcal{L}}{\partial \theta}\,
+	\Big(\frac{\partial \mathcal{L}}{\partial \theta}\Big)^{\!T}\right]
+	\]
+	تحت فرض \(H_0\) به شکل
+	\begin{equation}
+	\mathbf{F}(\theta_0)=\frac{4n^{2}}{\pi^{2}}\,
+	\mathbb{E}\!\left[\tilde{\mathbf{r}}\,\tilde{\mathbf{r}}^{T}\right]
+	\end{equation}
+	خواهد بود. از آن‌جا که تحت \(H_0\) توزیع \(\tilde Y\) برابر \(\big(\tfrac{1}{2}\big)^{2mn}\) است
+	و مؤلفه‌ها مستقل‌اند، برای \(1\le i<j\le m\) و \(1\le k<l\le m\) داریم
+	\begin{equation}
+	\mathbb{E}\!\left[\mathrm{Re}(\hat r_{ij})\,\mathrm{Re}(\hat r_{kl})\right]
+	=\mathbb{E}\!\left[\mathrm{Im}(\hat r_{ij})\,\mathrm{Im}(\hat r_{kl})\right]
+	=\frac{2}{n}\,\delta_{ik}\delta_{jl},\qquad
+	\end{equation}
+	\begin{equation}
+	\mathbb{E}\!\left[\mathrm{Re}(\hat r_{ij})\,\mathrm{Im}(\hat r_{kl})\right]=0,
+	\end{equation}
+	در نتیجه
+	\begin{equation}
+	\mathbb{E}\!\left[\tilde{\mathbf{r}}\,\tilde{\mathbf{r}}^{T}\right]=\frac{2}{n}\,\mathbf{I}_{m^{2}-m}
+	\quad\Longrightarrow\quad
+	\mathbf{F}(\theta_0)=\frac{8n}{\pi^{2}}\,\mathbf{I}_{m^{2}-m}.
+	\end{equation}
+	
+	اکنون آمارۀ رائو
+	\[
+	T_R=\left(\frac{\partial \mathcal{L}}{\partial \theta}\Big|_{\theta_0}\right)^{\!T}
+	\mathbf{F}^{-1}(\theta_0)\,
+	\left(\frac{\partial \mathcal{L}}{\partial \theta}\Big|_{\theta_0}\right)
+	\]
+	را محاسبه می‌کنیم. با جانشانی نتایج بالا به‌دست می‌آید
+	\[
+	T_R=\Big(\tfrac{2n}{\pi}\tilde r\Big)^{\!T}
+	\Big(\tfrac{\pi^{2}}{8n}I\Big)
+	\Big(\tfrac{2n}{\pi}\tilde r\Big)
+	=\frac{n}{2}\,\|\tilde r\|^{2}
+	=\frac{n}{2}\sum_{i<j}\Big(\mathrm{Re}^{2}\{\hat r_{ij}\}+\mathrm{Im}^{2}\{\hat r_{ij}\}\Big)
+	=\frac{n}{2}\sum_{i<j}\big|\hat r_{ij}\big|^{2}.
+	\]
+	پس آمارۀ رائو برای مسألهٔ حاضر
+	\[
+	T_R=\frac{n}{2}\sum_{i<j}\big|\hat r_{ij}\big|^{2},\qquad
+	\hat{\mathbf{R}}_{\mathbf{y}}=\frac{1}{n}\sum_{t=1}^{n}\mathbf{y}(t)\mathbf{y}^{H}(t),
+	\]
+	و قاعدهٔ تصمیم
+	\[
+	T_R \;\underset{H_0}{\overset{H_1}{\gtrless}}\; \gamma_R
+	\]
+	خواهد بود.
+	
+\end{اثبات}
+
+
+آشکارساز \ \لر{$\infty$-bit EMR} مرتبه‌ی دوم که در مقالات قبلی معرفی و به آن اشاره شده است به صورت زیر است :
+\begin{equation}
+	T_{\mathrm{EMR}}(\hat{\mathbf{R}_\mathbf{x}})=\frac{\frac{1}{m}\; \|\hat{\mathbf{R}_\mathbf{x}}\|^2}{\left(\frac{1}{m}\; \mathrm{tr}(\hat{\mathbf{R}_\mathbf{x}})\right)^2}\underset{H_0}{\overset{H_1}{\gtrless}}\; \gamma_{\mathrm{EMR}}
+\end{equation}
+
+که 
+$\mathbf{R}_\mathbf{x}$،
+\لر{SCM} محاسبه شده از نمونه‌های کوانتیزه نشده‌ی
+$\mathbf{X}=[\mathbf{x}(1), ..., \mathbf{x}(n)]$
+است.\\
+با توجه به این نکته که المان‌های قطری 
+$\mathbf{R}_\mathbf{y}$
+برابر با ۲ است، داریم :
+
+
+\begin{align*}
+	T_{\mathrm{EMR}}(\hat{\mathbf{R}_\mathbf{y}})&=\frac{\frac{1}{m}\; \|\hat{\mathbf{R}_\mathbf{y}}\|^2}{\left(\frac{1}{m}\; \mathrm{tr}(\hat{\mathbf{R}_\mathbf{y}})\right)^2}=\frac{\frac{1}{m}\; \left(2\sum_{i<j}\big|\hat r_{ij}\big|^{2}+m\times4\right)}{\left(\frac{1}{m}\times 2m\right)^2}\\
+	&=\frac{\left(\frac{2}{m}\sum_{i<j}\big|\hat r_{ij}\big|^{2}+4\right)}{4}=\frac{1}{2m} \sum_{i<j}\big|\hat r_{ij}\big|^{2} + 1\\
+\end{align*}
+در نتیجه داریم :
+\begin{equation}
+	T_{\mathrm{EMR}}(\hat{\mathbf{R}}_{\mathbf{y}})=\frac{1}{mn}T_R + 1
+\end{equation}
+
+و با توجه به این رابطه، می‌توان گفت تست \ \لر{Rao} معادل تست \ \لر{EMR} است که از \لر{SCM} مختلط نمونه‌های تک‌بیتی استفاده می‌کند.

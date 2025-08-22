@@ -1,0 +1,127 @@
+\فصل{مدل سیگنال}
+
+یک سیستم \لر{Cognitive Radio} که \لر{MIMO}\پانویس{Multiple Input Multiple Output} است را در نظر بگیرید که
+\lr{$p$}
+کاربر \لر{primary} تک آنتن و
+\lr{$m$}
+آنتن گیرنده در کاربر \لر{secondary} در آن وجود دارند. ورودی‌های \لر{ADC}ها تحت فرض‌های 
+\lr{$H_0$}
+و
+\lr{$H_1$}
+به صورت زیر هستند.
+\begin{align}
+	\mathcal{H}_0 &: \mathbf{x}(t) = \mathbf{w}(t), \\
+	\mathcal{H}_1 &: \mathbf{x}(t) = \mathbf{H}\mathbf{s}(t) + \mathbf{w}(t)
+\end{align}
+که 
+$\mathbf{H}\in\mathbb{C}^{mxp}$
+نمایانگر ضرایب کانال در حین \لر{sensing} است که نامشخص و یقینی است. همچنین
+$\mathbf{s}(t)=[s_1(t), ..., s_p(t)]^T$
+و
+$\mathbf{w}(t)=[w_1(t), ..., w_m(t)]^T$
+به ترتیب، بردارهای سیگنال و نویز هستند. قابل ذکر است که توزیع نویز
+$\mathbf{w}(t)$،
+\لر{i.i.d ZMCSCG\پانویس{Zero mean circular symmetric complex Gaussian}} با ماتریس کوواریانس
+$\mathbf{R}_\mathbf{w}=\mathrm{diag}(\sigma_{w_1}, ..., \sigma_{w_m})$
+است که المان‌های قطری آن در صورت عدم کالیبره، می‌توانند نابرابر باشد. سیگنال از  نویز مستقل است و برای سادگی در تحلیل‌ها، سیگنال را تصادفی و با توزیع \لر{i.i.d ZMCSCG} و ماتریس کوواریانس نامشخص 
+$\mathbf{R}_\mathbf{s}$
+در نظر می‌گیریم. 
+برای یک بردار تصادفی، \لر{PCM}\پانویس{Population covariance matrix} به صورت
+$\mathbf{R}_\mathbf{x}=\mathbb{E}[\mathbf{x}(t)\mathbf{x}^H(t)]$
+تعریف می‌شود و برای هر دو فرض داریم:
+\begin{align}
+	\mathcal{H}_0 &: \mathbf{R}_\mathbf{x} = \mathbf{R}_\mathbf{w}, \\
+	\mathcal{H}_1 &: \mathbf{R}_\mathbf{x} = \mathbf{H}\mathbf{R}_\mathbf{s}\mathbf{H}^H + \mathbf{R}_\mathbf{w}
+\end{align}
+
+که قابل ساده‌سازی به زیر است:
+\begin{align}
+	\mathcal{H}_0 &: \mathbf{R}_\mathbf{x} = \mathrm{diag}(\sigma_{w_1}, ..., \sigma_{w_m}), \\
+	\mathcal{H}_1 &: \mathbf{R}_\mathbf{x} \neq \mathrm{diag}(\sigma_{w_1}, ..., \sigma_{w_m})
+\end{align}
+
+که مشخصا سناریوی کالیبره نبودن گیرنده‌ها نیز در این فرمول‌بندی در نظر گرفته شده است.
+\\
+بعد از کوانتیزه شدن تک‌بیتی داریم:
+$$\mathbf{y}(t)=\mathcal{Q}(\mathbf{x}(t))=\mathrm{sign}(\mathrm{Re}(\mathbf{x}(t)))+j\mathrm{sign}(\mathrm{Im}(\mathbf{x}(t)))$$
+که
+$\mathcal{Q}$
+نمایانگر عملگر کوانتیزاسیون تک‌بیتی است و برای هر دو فرض داریم:
+\begin{align}
+	\mathcal{H}_0 &: \mathbf{y}(t) = \mathcal{Q}(\mathbf{w}(t)), \\
+	\mathcal{H}_1 &: \mathbf{y}(t) = \mathcal{Q}(\mathbf{H}\mathbf{s}(t)+\mathbf{w}(t))
+\end{align}
+
+در \مرجع{barshalom2002doa} نشان داده شده است که \لر{PMF} مربوط به
+$\mathbf{y}(t)$
+با احتمالات \لر{Orthant} توصیف می‌شود. برای سادگی محاسبه‌ی این احتمالات، بردار مشاهدات را با کنار هم قرار دادن بخش‌های حقیقی و موهومی به برداری حقیقی تبدیل می‌کنیم.
+\begin{equation}
+	\tilde{\mathbf{y}}(t)=\begin{bmatrix}
+		\mathrm{Re}(\mathbf{y}(t))^T & \mathrm{Im}(\mathbf{y}(t))^T
+	\end{bmatrix}^T
+\end{equation}
+\begin{equation}
+	\tilde{\mathbf{x}}(t)=\begin{bmatrix}
+		\mathrm{Re}(\mathbf{x}(t))^T & \mathrm{Im}(\mathbf{x}(t))^T
+	\end{bmatrix}^T
+\end{equation}
+
+در \مرجع{barshalom2002doa} اثبات شده است که احتمالات \لر{Orthant} تنها با ماتریس \لر{Coherence} تعیین می‌شوند. پس مسئله تست فرض به صورت زیر ساده می‌شود:
+\begin{align}
+	\mathcal{H}_0 &: \mathbf{P}=\mathbf{I}_{2m}, \\
+	\mathcal{H}_1 &: \mathbf{P}\neq\mathbf{I}_{2m}
+\end{align}
+
+که 
+$\mathbf{P}=\mathrm{Diag}(\mathbf{R}_{\tilde{\mathbf{x}}})^{-\frac{1}{2}}\mathbf{R}_{\tilde{\mathbf{x}}}\mathrm{Diag}(\mathbf{R}_{\tilde{\mathbf{x}}})^{-\frac{1}{2}}$،
+ماتریس \لر{Coherence} مربوط به 
+$\tilde{\mathbf{x}}(t)$
+ و 
+$\mathbf{R}_{\tilde{\mathbf{x}}}$،
+\لر{PCM} آن است.
+
+با توجه به \لر{Circular} بودن 
+$\mathbf{x}(t)$،
+می‌توان 
+$\mathbf{P}$
+را به صورت زیر نوشت :
+\begin{equation}
+	\mathbf{P}=\begin{bmatrix}
+		\mathrm{Re}(\mathbf{P}_\mathbf{x}) & -\mathrm{Im}(\mathbf{P}_\mathbf{x}) \\
+		\mathrm{Im}(\mathbf{P}_\mathbf{x}) & \mathrm{Re}(\mathbf{P}_\mathbf{x})
+	\end{bmatrix}=\begin{bmatrix}
+	\mathbf{P}_1 & \mathbf{P}_2 \\
+	\mathbf{P}_3 & \mathbf{P}_4
+	\end{bmatrix}
+\end{equation}
+که 
+$\mathbf{P}_\mathbf{x}$،
+ماتریس \لر{Coherence} مربوط به 
+$\mathbf{x}$
+است. با در نظر گرفتن این نکته که 
+$\mathbf{P}_1=\mathbf{P}_4$
+و
+$\mathbf{P}_2=-\mathbf{P}_3$
+است، تعداد پارامترهای نامعلوم 
+$\mathbf{P}$
+به 
+$m^2-m$
+کاهش می‌یابد.
+می‌توانیم بردار پارامترهای نامعلوم را به صورت زیر تعریف کنیم:
+\begin{equation}
+	\theta=[\rho_{1,2}, ..., \rho_{m-1,m}, \rho_{1+m, 2}, ..., \rho_{2m-1, m}]^T
+\end{equation}
+که 
+$\rho_{i, j}$،
+المان 
+$(i, j)$
+از 
+$\mathbf{P}$
+است.
+در نتیجه مسئله‌ی آشکارسازی به صورت زیر می‌شود:
+\begin{align}
+	\mathcal{H}_0 &: \theta=0, \\
+	\mathcal{H}_1 &: \theta\neq0
+\end{align}
+قابل توجه است که این مقاله، با استفاده از این تقارن‌ها، درجه‌ی آزادی را کاهش می‌دهد و به طور قابل توجهی کارایی  را افزایش می‌دهد.
+

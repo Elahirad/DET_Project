@@ -1,0 +1,50 @@
+
+\documentclass[oneside,a4paper,12pt]{book}
+
+\newif\ifnewXePer \newXePertrue
+%\newXePerfalse
+
+\input{styles/common.tex}
+\input{styles/custom.tex}
+
+\begin{document}
+
+% -------------------- Front Pages --------------------
+
+\include{front/info}
+\pagestyle{empty}
+\include{front/template/title}
+
+\include{front/template/besmellah}
+
+\pagestyle{plain}
+\pagenumbering{tartibi}
+
+
+% -------------------- Table of Contents --------------------
+
+\tableofcontents \newpage
+\listoftables \newpage
+\listoffigures \newpage
+
+
+% -------------------- Chapters --------------------
+
+\pagenumbering{arabic}
+
+\include{chapters/introduction}
+\include{chapters/signal_model}
+\include{chapters/rao_test}
+\include{chapters/distribution}
+
+
+% -------------- Bibliographyy ---------------
+
+\include{bibs/bibs}
+
+
+
+% -------------------- The End! --------------------
+
+\end{document}
+
