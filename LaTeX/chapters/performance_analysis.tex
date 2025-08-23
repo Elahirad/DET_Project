@@ -1,0 +1,364 @@
+\فصل{تحلیل عملکرد}
+
+در این بخش، افت کارایی در آشکارسازی هنگام استفاده از مبدل‌های آنالوگ–دیجیتال یک‌بیتی \لر{1-bit ADCs}
+ در مقایسه با مبدل‌های $\infty$-بیتی بررسی می‌شود.  
+توجه کنید که آشکارساز $\infty$-بیتی EMR در دسته‌ی آزمون‌های \لر{sphercity} قرار می‌گیرد؛ آزمون‌هایی که هم استقلال بین متغیرهای تصادفی و هم برابری واریانس‌های آن‌ها را در نظر می‌گیرند.  
+با این حال، به دلیل از دست رفتن اطلاعات دامنه در حالت یک‌بیتی، مقایسه‌ی واریانس‌ها غیرممکن می‌شود.  
+بنابراین، نتیجه‌ی ما با آزمون \لر{LMPIT}\پانویس{Locally Most Powerful Invariant Test} مقایسه می‌شود.  
+در حقیقت، وقتی SNR پایین باشد، درایه‌های قطری ماتریس کوواریانس تقریباً برابر می‌شوند و آزمون \لر{sphercity} کارایی نزدیک به آزمون استقلال دارد، که این موضوع با شبیه‌سازی در \مرجع{huang2015performance} نشان داده شده است.
+
+\قسمت{حالت \لر{$\infty$-bit}}
+
+مسئله‌ی آشکارسازی برای $\infty$-بیت ADC مطابق زیر است.  
+\begin{align}
+	\mathcal{H}_0 &: \mathbf{R}_\mathbf{x} = \mathrm{diag}(\sigma_{w_1}, ..., \sigma_{w_m}), \notag \\
+	\mathcal{H}_1 &: \mathbf{R}_\mathbf{x} \neq \mathrm{diag}(\sigma_{w_1}, ..., \sigma_{w_m}) \notag
+\end{align}
+\لر{LMPIT} برای این مسئله به صورت زیر بیان می‌شود \مرجع{ramirez2013locally}:
+\begin{equation}
+	T_{L}=n\,\mathrm{tr}\!\left[\big(\hat{\mathbf{R}}_{\mathbf{x}}\,\mathrm{Diag}(\hat{\mathbf{R}}_{\mathbf{x}})^{-1}-\mathbf{I}_{m}\big)^{2}\right]
+	\;\underset{H_{0}}{\overset{H_{1}}{\gtrless}}\;\gamma_{L},
+\end{equation}
+که توزیع مجانبی آن در \مرجع{xiao2018approximate} تحلیل شده است:
+\begin{equation}
+	T_{L}\sim
+	\begin{cases}
+		\chi^{2}_{k}, & H_{0},\\[6pt]
+		\chi^{2}_{k}(\delta_{\infty}^{2}), & H_{1},
+	\end{cases}
+\end{equation}
+که در آن $k=m^{2}-m$ و
+$
+	\delta_{\infty}^{2}=n\,\mathrm{tr}\!\big[(\mathbf{P}_{\mathbf{x}}-\mathbf{I}_{m})^{2}\big]=2n\|\theta\|^{2}
+$
+\قسمت{حالت تک‌بیت}
+
+در بخش قبل، توزیع آماره‌ی $T_{R}$ را با توزیع بتا تقریب زدیم.  
+با این حال، این تقریب برای مقایسه با آشکارسازهای $\infty$-بیتی جهت تحلیل افت کارایی مناسب نیست.  
+بنابراین، در این‌جا یک تقریب جدید برای توزیع $T_{R}$ در SNR پایین استخراج می‌کنیم که در قالب توزیع کای-دو غیرمرکزی بیان می‌شود.  
+
+ابتدا می‌نویسیم:
+\begin{equation}
+	T_{R}=\|\tilde{\mathbf{r}}_{\mathrm{sc}}\|^{2},
+\end{equation}
+که در آن 
+\(\tilde{\mathbf{r}}_{\mathrm{sc}}=\sqrt{\tfrac{n}{2}}\,\tilde{\mathbf{r}}\)،  
+و 
+\(\tilde{\mathbf{r}}=\big[\mathrm{Re}(\hat{\mathbf{r}})^{T},\;\mathrm{Im}(\hat{\mathbf{r}})^{T}\big]^{T}\).  
+خود
+$\hat{\mathbf{r}}$
+نیز قبلا به صورت زیر تعریف شد.
+\[
+\hat{\mathbf{r}}=\big[\hat r_{1,2},\hat r_{1,3},\hat r_{2,3},\ldots,\hat r_{m-1,m}\big]^{T}
+\]
+\begin{قضیه}
+در SNR پایین که $\theta$ از مرتبه‌ی $\mathcal{O}(n^{-1/2})$ است،  
+بردار تصادفی
+$\tilde{\mathbf{r}}_{\mathrm{sc}}$
+به صورت مجانبی از یک توزیع گاوسی چندبعدی حقیقی با میانگین و کوواریانس زیر پیروی می‌کند:
+\begin{align}
+	\mathbb{E}[\tilde{\mathbf{r}}_{\mathrm{sc}}]
+	&=\frac{2}{\pi}\sqrt{2n}\,\theta+\mathcal{O}(n^{-1/2}),\\
+	\mathbf{R}_{\tilde{\mathbf{r}}_{\mathrm{sc}}}
+	&=\mathbf{I}_{m^{2}-m}+\mathcal{O}(n^{-1/2}).
+\end{align}
+\end{قضیه}
+\begin{اثبات}
+	\qquad \\
+	\textbf{میانگین و واریانس $\tilde{\mathbf{r}}_{\mathrm{sc}}$} \\
+	برای اختصار، هر بردار با اندیس \لر{\texttt{sc}} به‌صورت مقیاس‌یافته تعریف می‌شود:
+	\begin{equation}
+		\mathbf{r}_{\mathrm{sc}} \triangleq \sqrt{\frac{n}{2}}\,\mathbf{r}.
+	\end{equation}
+	بنابراین
+	\[
+	\tilde{\mathbf{r}}_{\mathrm{sc}}
+	=
+	\begin{bmatrix}
+		\mathrm{Re}\!\big(\hat{\mathbf{r}}_{\mathrm{sc}}\big)^{\!T} &
+		\mathrm{Im}\!\big(\hat{\mathbf{r}}_{\mathrm{sc}}\big)^{\!T}
+	\end{bmatrix}^{\!T},
+	\quad
+	\hat{\mathbf{r}}_{\mathrm{sc}}
+	=
+	\big[\,(\hat r_{1,2})_{\mathrm{sc}}, (\hat r_{1,3})_{\mathrm{sc}}, (\hat r_{2,3})_{\mathrm{sc}}, \ldots, (\hat r_{m-1,m})_{\mathrm{sc}} \,\big]^{T}.
+	\]
+	
+	با فرض \(\theta=\mathcal{O}(n^{-1/2})\)، بسط تیلور \(p(\tilde{\mathbf{y}}(t);\theta)\) پیرامون \(\theta_{0}=\mathbf{0}\) به صورت زیر است.
+	\begin{align}
+		p(\tilde{\mathbf{y}}(t);\theta)
+		&= p(\tilde{\mathbf{y}}(t);\theta_{0})
+		+ \theta^{T}\!\left.\frac{\partial p(\tilde{\mathbf{y}}(t))}{\partial \theta}\right|_{\theta=\theta_{0}}
+		+ \mathcal{O}(n^{-1}) \notag \\
+		&= \frac{1}{2^{2m}}
+		+ \frac{1}{2^{2m-1}\pi}\sum_{1\le i<j\le m}\!\!\mathrm{Re}\!\big(z_{ij}(t)\big)\,\rho_{ij}
+		+ \frac{1}{2^{2m-1}\pi}\sum_{1\le i<j\le m}\!\!\mathrm{Im}\!\big(z_{ij}(t)\big)\,\rho_{i'j}
+		+ \mathcal{O}(n^{-1}),
+	\end{align}
+	که در آن با استفاده از \(\rho_{i'j'}=\rho_{ij}\)، \(\rho_{ij'}=-\rho_{i'j}\) و \(\mathrm{diag}(\mathrm{Im}(\mathbf{P}_{x}))=\mathbf{0}\) را مشابه \eqref{eq:74} و \eqref{eq:75} می‌توان نوشت
+	\begin{equation}
+		p(\tilde{\mathbf{y}}(t);\theta)
+		= \frac{1}{2^{2m}}
+		+ \frac{1}{2^{2m-1}\pi}\sum_{1\le i<j\le 2m}\tilde y_i(t)\tilde y_j(t)\,\rho_{ij}
+		+ \mathcal{O}(n^{-1}).
+	\end{equation}
+	سپس می‌توان نتیجه گرفت که :
+	\begin{equation}
+		p\big(\tilde y_a(t),\tilde y_b(t);\theta\big)
+		= \frac{1}{4}+\frac{1}{2\pi}\tilde y_a(t)\tilde y_b(t)\,\rho_{ab}+\mathcal{O}(n^{-1}),
+	\end{equation}
+	\begin{align}
+		&p\big(\tilde y_a(t),\tilde y_b(t),\tilde y_c(t),\tilde y_d(t);\theta\big)
+		= \frac{1}{16}
+		+ \notag \\
+		&\frac{1}{8\pi}\!\left[
+		\tilde y_a\tilde y_b\,\rho_{ab}+\tilde y_a\tilde y_c\,\rho_{ac}+\tilde y_a\tilde y_d\,\rho_{ad}
+		+\tilde y_b\tilde y_c\,\rho_{bc}+\tilde y_b\tilde y_d\,\rho_{bd}+\tilde y_c\tilde y_d\,\rho_{cd}
+		\right] +\mathcal{O}(n^{-1})
+	\end{align}
+	که 
+	$1\leq a \neq b \neq c \neq d \leq 2m$ \\
+	در نتیجه
+	\begin{align}
+		\mathbb{E}\!\big[\tilde y_a(t)\tilde y_b(t)\big]
+		&= \sum_{\tilde{y}_e(t)=\pm1 \atop e=a,b} \tilde{y}_a(t)\tilde{y}_b(t)p\big(\tilde y_a(t),\tilde y_b(t);\theta\big)  = \frac{2}{\pi}\rho_{ab}+\mathcal{O}(n^{-1}),\\
+		\mathbb{E}\!\big[\tilde y_a(t)\tilde y_b(t)\tilde y_c(t)\tilde y_d(t)\big]
+		&=\sum_{\tilde{y}_e(t)=\pm1 \atop e=a,b,c,d} \tilde{y}_a(t)\tilde{y}_b(t)\tilde{y}_c(t)\tilde{y}_d(t)p\big(\tilde y_a(t),\tilde y_b(t),\tilde{y}_c(t),\tilde{y}_d(t);\theta\big) \notag \\
+		&= \mathcal{O}(n^{-1}),
+	\end{align}
+	وقتی تمام اندیس‌های
+	${a,b,c,d}$
+	یکسان باشند، می‌توان با استفاده از \eqref{eq:B1}، می‌توان 
+	$\mathbb{E}\!\big[\tilde y_a(t)\tilde y_b(t)\tilde y_c(t)\tilde y_d(t)\big]$
+	را ساده کرد. پس می‌توان نشان داد که :
+	\begin{align}
+		\mathbb{E}\!\left[\mathrm{Re}\big((\hat r_{ij})_{\mathrm{sc}}\big)\right]
+		&= \sqrt{\tfrac{n}{2}}\,
+		\mathbb{E}\!\left[\mathrm{Re}(\hat r_{ij})\right] \notag \\[6pt]
+		&= \sqrt{\tfrac{n}{2}}\,
+		\mathbb{E}\!\left[\frac{1}{n}\sum_{t=1}^{n}\big(\tilde y_{i}(t)\tilde y_{j}(t)
+		+ \tilde y_{i'}(t)\tilde y_{j'}(t)\big)\right] \notag \\[6pt]
+		&= \sqrt{\tfrac{n}{2}}\,
+		\left[\frac{2}{\pi}\rho_{ij} + \frac{2}{\pi}\rho_{i'j'} + \mathcal{O}(n^{-1})\right] \notag \\[6pt]
+		&= \frac{2\sqrt{2n}}{\pi}\,\rho_{ij} + \mathcal{O}(n^{-1/2}),
+	\end{align}
+	
+	\begin{align}
+		\mathbb{E}\!\left[\mathrm{Im}\big((\hat r_{ij})_{\mathrm{sc}}\big)\right]
+		&= \sqrt{\tfrac{n}{2}}\,
+		\mathbb{E}\!\left[\mathrm{Im}(\hat r_{ij})\right] \notag \\[6pt]
+		&= \sqrt{\tfrac{n}{2}}\,
+		\mathbb{E}\!\left[\frac{1}{n}\sum_{t=1}^{n}\big(\tilde y_{i'}(t)\tilde y_{j}(t)
+		- \tilde y_{i}(t)\tilde y_{j'}(t)\big)\right] \notag \\[6pt]
+		&= \sqrt{\tfrac{n}{2}}\,
+		\left[\frac{2}{\pi}\rho_{i'j} - \frac{2}{\pi}\rho_{ij'} + \mathcal{O}(n^{-1})\right] \notag \\[6pt]
+		&= \frac{2\sqrt{2n}}{\pi}\,\rho_{i'j} + \mathcal{O}(n^{-1/2}).
+	\end{align}
+	پس میانگین بردار
+	\begin{equation}
+		\mathbb{E}\!\left[\tilde{\mathbf{r}}_{\mathrm{sc}}\right]
+		= \frac{2\sqrt{2n}}{\pi}\,\theta+\mathcal{O}(n^{-1/2}).
+	\end{equation}
+	
+	از استقلال زمانی، برای \(t_1\neq t_2\) داریم
+	\begin{equation}
+		\mathbb{E}\!\big[\tilde y_a(t_1)\tilde y_b(t_1)\tilde y_c(t_2)\tilde y_d(t_2)\big]
+		= \mathbb{E}\!\big[\tilde y_a(t_1)\tilde y_b(t_1)\big]\,
+		\mathbb{E}\!\big[\tilde y_c(t_2)\tilde y_d(t_2)\big].
+	\end{equation}
+	اکنون کوواریانس‌های مؤلفه‌ها را محاسبه می‌کنیم. با تعریف \(z_{ij}(t)=y_i(t)y_j^{*}(t)\) داریم :
+	\begin{align}
+		&\mathbb{E}\!\left[\mathrm{Re}\big((\hat r_{ij})_{\mathrm{sc}}\big)\,
+		\mathrm{Re}\big((\hat r_{kl})_{\mathrm{sc}}\big)\right]
+		- \mathbb{E}\!\left[\mathrm{Re}\big((\hat r_{ij})_{\mathrm{sc}}\big)\right]\,
+		\mathbb{E}\!\left[\mathrm{Re}\big((\hat r_{kl})_{\mathrm{sc}}\big)\right] \notag \\[6pt]
+		&= \tfrac{n}{2}\,\mathbb{E}\!\left[\mathrm{Re}(\hat r_{ij})\,\mathrm{Re}(\hat r_{kl})\right]
+		- \tfrac{n}{2}\,\mathbb{E}\!\left[\mathrm{Re}(\hat r_{ij})\right]\,
+		\mathbb{E}\!\left[\mathrm{Re}(\hat r_{kl})\right] \notag \\[6pt] 
+		&= \tfrac{1}{2n}\,
+		\mathbb{E}\!\left[
+		\sum_{t_{1}=1}^{n}\sum_{t_{2}=1}^{n}
+		\mathrm{Re}\!\big(z_{ij}(t_{1})\big)\,
+		\mathrm{Re}\!\big(z_{kl}(t_{2})\big)
+		\right] - \tfrac{1}{2n}\,
+		\mathbb{E}\!\left[\sum_{t_{1}=1}^{n}\mathrm{Re}\!\big(z_{ij}(t_{1})\big)\right]\,
+		\mathbb{E}\!\left[\sum_{t_{2}=1}^{n}\mathrm{Re}\!\big(z_{kl}(t_{2})\big)\right] \notag \\[6pt]
+		&= \tfrac{1}{2n}\sum_{t=1}^{n}\mathbb{E}\!\left[
+		\mathrm{Re}\!\big(z_{ij}(t)\big)\,
+		\mathrm{Re}\!\big(z_{kl}(t)\big)\right]
+		- \tfrac{1}{2n}\sum_{t=1}^{n}\mathbb{E}\!\left[\mathrm{Re}\!\big(z_{ij}(t)\big)\right]\,
+		\mathbb{E}\!\left[\mathrm{Re}\!\big(z_{kl}(t)\big)\right] \notag \\[6pt]
+		&=\begin{cases}
+			1-\tfrac{8}{\pi^{2}}\rho_{ij}^{2}+\mathcal{O}(n^{-1}), & i{=}k,~j{=}l,\\[2pt]
+			\tfrac{2}{\pi}\rho_{jl}-\tfrac{8}{\pi^{2}}\rho_{ij}\rho_{il}+\mathcal{O}(n^{-1}), & i{=}k,~j\neq l,\\[2pt]
+			\tfrac{2}{\pi}\rho_{jk}-\tfrac{8}{\pi^{2}}\rho_{ij}\rho_{ki}+\mathcal{O}(n^{-1}), & i{=}l,\\[2pt]
+			\tfrac{2}{\pi}\rho_{il}-\tfrac{8}{\pi^{2}}\rho_{ij}\rho_{jl}+\mathcal{O}(n^{-1}), & j{=}k,\\[2pt]
+			\tfrac{2}{\pi}\rho_{ik}-\tfrac{8}{\pi^{2}}\rho_{ij}\rho_{kj}+\mathcal{O}(n^{-1}), & j{=}l,~i\neq k,\\[2pt]
+			-\tfrac{8}{\pi^{2}}\rho_{ij}\rho_{kl}+\mathcal{O}(n^{-1}), & i\neq j\neq k\neq l,
+		\end{cases}
+	\end{align}
+	که با توجه به \(\theta=\mathcal{O}(n^{-1/2})\) معادله بالا به صورت زیر ساده می‌شود:
+	\begin{equation}
+		\mathbb{E}\!\left[\mathrm{Re}\big((\hat r_{ij})_{\mathrm{sc}}\big)\,
+		\mathrm{Re}\big((\hat r_{kl})_{\mathrm{sc}}\big)\right]
+		- \mathbb{E}\!\left[\mathrm{Re}\big((\hat r_{ij})_{\mathrm{sc}}\big)\right]\,
+		\mathbb{E}\!\left[\mathrm{Re}\big((\hat r_{kl})_{\mathrm{sc}}\big)\right]
+		=
+		\begin{cases}
+			1+\mathcal{O}(n^{-1}), & i=k,\; j=l, \\[6pt]
+			\mathcal{O}(n^{-1/2}), & \text{otherwise}.
+		\end{cases}
+	\end{equation}
+	که 
+	$1 \leq i < j \leq m$ 
+	و
+	$1 \leq k < l \leq m$ \\
+	به طرز مشابه خواهیم داشت :
+	\begin{equation}
+		\mathbb{E}\!\left[\mathrm{Re}\big((\hat r_{ij})_{\mathrm{sc}}\big)\,
+		\mathrm{Im}\big((\hat r_{kl})_{\mathrm{sc}}\big)\right]
+		- \mathbb{E}\!\left[\mathrm{Re}\big((\hat r_{ij})_{\mathrm{sc}}\big)\right]\,
+		\mathbb{E}\!\left[\mathrm{Im}\big((\hat r_{kl})_{\mathrm{sc}}\big)\right]
+		= \mathcal{O}(n^{-\tfrac{1}{2}}).
+	\end{equation}
+	و
+	\begin{equation}
+		\mathbb{E}\!\left[\mathrm{Im}\big((\hat r_{ij})_{\mathrm{sc}}\big)\,
+		\mathrm{Im}\big((\hat r_{kl})_{\mathrm{sc}}\big)\right]
+		- \mathbb{E}\!\left[\mathrm{Im}\big((\hat r_{ij})_{\mathrm{sc}}\big)\right]\,
+		\mathbb{E}\!\left[\mathrm{Im}\big((\hat r_{kl})_{\mathrm{sc}}\big)\right]
+		=
+		\begin{cases}
+			1+\mathcal{O}(n^{-1}), & i=k,\; j=l, \\[6pt]
+			\mathcal{O}(n^{-1/2}), & \text{otherwise}.
+		\end{cases}
+	\end{equation}
+	
+	
+	
+	
+	در نتیجه ماتریس کوواریانس \(\tilde{\mathbf{r}}_{\mathrm{sc}}\) در SNR پایین
+	\begin{equation}
+		\mathbf{R}_{\tilde{\mathbf{r}}_{\mathrm{sc}}}=\mathbf{I}_{m^{2}-m}+\mathcal{O}(n^{-1/2}). 
+	\end{equation}
+	
+	\textbf{اثبات گوسی بودن $\tilde{\mathbf{r}}_{\mathrm{sc}}$}
+	
+	برای اتمام اثبات قضیهٔ ۴ نشان می‌دهیم \(\tilde{\mathbf{r}}_{\mathrm{sc}}\) به‌صورت مجانبی، گاوسی است. از نسخهٔ چندمتغیرهٔ قضیۀ حد مرکزی استفاده می‌کنیم: \\
+	\textbf{لم} (\emph{Multivariate CLT}).
+	اگر \(\mathbf{s}=\sum_{t=1}^{n}\mathbf{b}_{t}\)، که \(\mathbf{b}_{t}\in\mathbb{R}^{d\times 1}\) مستقل و با میانگین صفرند، آنگاه برای \(n\to\infty\)، \(\mathbf{s}\) با میانگین صفر و کوواریانس \(\mathbf{C}\) مجانبی گاوسی است هرگاه
+	\begin{equation}
+		\lim_{n\to\infty}\sum_{t=1}^{n}\mathbb{E}\!\left[\left\lVert \mathbf{C}^{-1/2}\mathbf{b}_{t}\right\rVert^{3}\right]=0. 
+	\end{equation}
+	
+	برای به‌کارگیری لم، تعریف می‌کنیم
+	\begin{align}
+		\tilde{\mathbf{z}}_{t}&=\sqrt{\frac{1}{2n}}
+		\begin{bmatrix}
+			\mathrm{Re}(\mathbf{z}_{t})^{T} & \mathrm{Im}(\mathbf{z}_{t})^{T}
+		\end{bmatrix}^{T}, \\
+		\mathbf{z}_{t}&=\big[z_{1,2}(t), z_{1,3}(t),\ldots,z_{m-1,m}(t)\big]^{T},\\
+		\mathbf{b}_{t}&=\tilde{\mathbf{z}}_{t}-\mathbb{E}[\tilde{\mathbf{z}}_{t}].
+	\end{align}
+	با استفاده از \eqref{eq:Ezij} داریم
+	\begin{equation}
+		\mathbb{E}[\tilde{\mathbf{z}}_{t}]=\Big(\frac{8}{n\pi^{2}}\Big)^{\!1/2}\!\arcsin(\theta),
+		\quad\text{(اعمالِ \(\arcsin\) به‌صورت درایه‌به‌درایه)}.
+	\end{equation}
+	همچنین
+	\begin{align}
+		\mathbf{s}&=\sum_{t=1}^{n}\mathbf{b}_{t}, \\
+		\tilde{\mathbf{r}}_{\mathrm{sc}}&=\mathbf{s}+\mathbb{E}[\tilde{\mathbf{r}}_{\mathrm{sc}}], \\
+		\mathbb{E}[\tilde{\mathbf{r}}_{\mathrm{sc}}]&=\sum_{t=1}^{n}\mathbb{E}[\tilde{\mathbf{z}}_{t}]
+		=\Big(\frac{8n}{\pi^{2}}\Big)^{\!1/2}\!\arcsin(\theta),
+	\end{align}
+	و \(\mathbf{C}=\mathbf{R}_{\tilde{\mathbf{r}}_{\mathrm{sc}}}\).
+	
+	یادآوری می‌کنیم که نامساوی کوشی-شوارتز به صورت زیر است :
+	\begin{equation}
+		\left\lVert \mathbf{c}_i\mathbf{b}_t\right\rVert^2 \leq \left\lVert\mathbf{c}_i\right\rVert^2 \left\lVert\mathbf{b}_t\right\rVert^2
+	\end{equation}
+	حال با استفاده از این نامساوی داریم :
+	\begin{align}
+		\left\lVert \mathbf{C}^{-1/2}\mathbf{b}_{t}\right\rVert^{3}
+		&=\left(\sum_{i}\lVert \mathbf{c}_{i}\mathbf{b}_{t}\rVert^{2}\right)^{\!3/2}
+		\le \left(\sum_{i}\lVert \mathbf{c}_{i}\rVert^{2}\lVert \mathbf{b}_{t}\rVert^{2}\right)^{\!3/2}
+		=\left\lVert \mathbf{C}^{-1/2}\right\rVert^{3}\,\lVert \mathbf{b}_{t}\rVert^{3}. 
+	\end{align}
+	از نامساوی 
+	$\mathbb{E}[f(x)] \geq \mathbb{E}[g(x)]$
+	برای 
+	$f(x) \geq g(x) \geq 0$
+	استفاده می‌کنیم. داریم :
+	\begin{equation}
+		\mathbb{E}[\left\lVert \mathbf{C}^{-1/2}\mathbf{b}_{t}\right\rVert^{3}] \leq \left\lVert \mathbf{C}^{-1/2}\right\rVert^{3} \mathbb{E}[\lVert \mathbf{b}_{t}\rVert^{3}]
+	\end{equation}
+	با استفاده از این نامساوی و این نکته که 
+	$\left\lVert \mathbf{C}^{-1/2}\mathbf{b}_{t}\right\rVert^{3}$
+	محدود است، کافی است نشان دهیم که
+	\begin{equation}
+		\lim_{n\to\infty}\sum_{t=1}^{n}\mathbb{E}\!\left[\lVert \mathbf{b}_{t}\rVert^{3}\right]=0,
+	\end{equation}
+	تا شرط لم برقرار باشد. با قانون متوازی‌الاضلاع داریم
+	\begin{align}
+		\lVert \mathbf{b}_{t}\rVert^{2}+\lVert \tilde{\mathbf{z}}_{t}+\mathbb{E}[\tilde{\mathbf{z}}_{t}]\rVert^{2}
+		&=2\big(\lVert \tilde{\mathbf{z}}_{t}\rVert^{2}+\lVert \mathbb{E}[\tilde{\mathbf{z}}_{t}]\rVert^{2}\big)
+		\;\Rightarrow\;
+		\lVert \mathbf{b}_{t}\rVert^{2}\le 2\big(\lVert \tilde{\mathbf{z}}_{t}\rVert^{2}+\lVert \mathbb{E}[\tilde{\mathbf{z}}_{t}]\rVert^{2}\big).
+	\end{align}
+	سپس داریم :
+	\begin{align}
+		\max \lVert \mathbf{b}_{t} \rVert^{2}
+		&\;\le\;
+		\max 2\Big( \lVert \tilde{\mathbf{z}}_{t} \rVert^{2}
+		+ \lVert \mathbb{E}[\tilde{\mathbf{z}}_{t}] \rVert^{2}\Big)
+		= \max 2\left(\frac{m(m-1)}{n} + \frac{8}{n\pi^{2}}\lVert \arcsin \theta \rVert^{2}\right) \notag \\[6pt]
+		&= \frac{2m(m-1)}{n} + \frac{16}{n\pi^{2}}\max_{\theta}\lVert \arcsin \theta \rVert^{2}
+		= \frac{6m(m-1)}{n}.
+	\end{align}
+	
+	در نتیجه
+	\begin{align}
+		\lim_{n \to \infty} \sum_{t=1}^{n} 
+		\mathbb{E}\!\left[ \lVert \mathbf{b}_{t} \rVert^{3} \right]
+		&\;\le\;
+		\lim_{n \to \infty} \sum_{t=1}^{n} \max \lVert \mathbf{b}_{t} \rVert^{3} \notag \\[6pt]
+		&= \lim_{n \to \infty} \sum_{t=1}^{n} 
+		\left[ \big(\max \lVert \mathbf{b}_{t} \rVert^{2}\big)^{3/2} \right]
+		\;\le\; [6m(m-1)]^{3/2}\,\lim_{n \to \infty} n^{-1/2}
+		= 0.
+	\end{align}
+	
+	و بنابراین طبق لم، \(\tilde{\mathbf{r}}_{\mathrm{sc}}\) مجانبی گاوسی است.\\
+	اکنون، اثبات قضیه به اتمام رسید.
+	
+\end{اثبات}
+با توجه به نتایج بالا نتیجه می‌گیریم:
+\begin{equation}
+	T_{R}\sim
+	\begin{cases}
+		\chi^{2}_{k}, & H_{0},\\[6pt]
+		\chi^{2}_{k}(\delta_{1}^{2}), & H_{1},
+	\end{cases}
+\end{equation}
+که در آن
+\begin{equation}
+	\delta_{1}^{2}=\frac{8n}{\pi^{2}}\|\theta\|^{2}
+	=\frac{4}{\pi^{2}}\delta_{\infty}^{2}.
+\end{equation}
+
+بنابراین می‌توان نتیجه گرفت که افت کارایی در SNR پایین تقریباً برابر است با:
+\[
+10\log_{10}\!\left(\sqrt{\frac{\delta_{\infty}^{2}}{\delta_{1}^{2}}}\right)\;\approx\;2~\mathrm{dB}.
+\]
+به بیان دیگر، این افت کارایی را می‌توان با افزایش اندازه‌ی نمونه‌ها به میزان
+$
+\frac{\delta_{\infty}^{2}}{\delta_{1}^{2}}
+=\frac{\pi^{2}}{4}\approx 2.47
+$
+جبران کرد.  
+
+شایان ذکر است که در \مرجع{xiao2022onebit} افت \لر{2 dB} تنها با افزایش تعداد نمونه‌ها به اندازه‌ی \linebreak
+$\pi/2\approx 1.57$ 
+برابر جبران‌پذیر گزارش شده بود.  
+در مقایسه با نتیجه‌ی این مقاله، روشن می‌شود که بازده \لر{non-coherent accumulation} برابر با ریشه‌ی دوم بازده \لر{coherent accumulation} است.
