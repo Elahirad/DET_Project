@@ -1,6 +1,5 @@
 clearvars; clc;
 
-addpath('constants');
 addpath('functions');
 
 

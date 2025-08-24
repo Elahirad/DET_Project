@@ -3,7 +3,6 @@ addpath('functions');
 addpath('utilities');
 
 m = 4;
-n = 16;
 sigma = [1, 1, 1, 1];
 thresholds = 0:80;
 num_trials = 1e6;

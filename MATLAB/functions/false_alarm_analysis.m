@@ -9,7 +9,7 @@ function false_alarm_analysis(m, n_arr, sigma_arr, thresholds, num_trials)
         prob_beta = 1 - betacdf(get_normalized_thresholds(thresholds, m, n), alpha, beta);
         [k, ~] = get_chi_parameters(m, n);
         prob_chi = 1 - chi2cdf(thresholds, k);
-
+        
         if i == 1
             semilogy(get_normalized_thresholds(thresholds, m, n), rao_prob, 'r', 'DisplayName', 'Simulation', 'LineWidth', 1.5); hold on
             semilogy(get_normalized_thresholds(thresholds, m, n), prob_beta, ':g', 'DisplayName', 'Beta approximation', 'LineWidth', 1.5);
@@ -19,6 +19,9 @@ function false_alarm_analysis(m, n_arr, sigma_arr, thresholds, num_trials)
             semilogy(get_normalized_thresholds(thresholds, m, n), prob_beta, ':g', 'HandleVisibility', 'off', 'LineWidth', 1.5);
             semilogy(get_normalized_thresholds(thresholds, m, n), prob_chi, '--b', 'HandleVisibility', 'off', 'LineWidth', 1.5);
         end
+
+        disp(['Beta distribution error @ n=', num2str(n), '->', num2str(mean((prob_beta-rao_prob).^2))]);
+        disp(['Chi-2 distribution error@ n=', num2str(n), '->', num2str(mean((prob_chi-rao_prob).^2))]);
 
     end
 
