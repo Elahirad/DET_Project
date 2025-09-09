@@ -2,28 +2,28 @@
 \فصل{کدهای نمایش نهایی نتایج}
 کدهای این قسمت از توابع طراحی شده استفاده کرده و نتایج نهایی را نمایش می‌دهند و در پوشه‌ی اصلی \لر{MATLAB} قرار دارند.
 توابع مورد استفاده در این قسمت، در پیوست‌های بعدی قرار گرفته است.
-\قسمت{ارزیابی ویژگی \لر{CFAR}
+\قسمت{ارزیابی ویژگی \لر{CFAR}\label{app:eval-cfar}
 (
 \texttt{eval\_cfar.m}
 )
 }
 \lr{\inputminted[frame=single, breaklines]{matlab}{code/eval_cfar.m}}
 
-\قسمت{ارزیابی  \لر{False Alarm}
+\قسمت{ارزیابی  \لر{False Alarm}\label{app:false_alarm}
 	(
 	\texttt{eval\_false\_alarm.m}
 	)
 }
 \lr{\inputminted[frame=single, breaklines]{matlab}{code/eval_false_alarm.m}}
 \pagebreak
-\قسمت{ارزیابی آشکارسازی
+\قسمت{ارزیابی آشکارسازی\label{app:detection}
 	(
 	\texttt{eval\_detection.m}
 	)
 }
 \lr{\inputminted[frame=single, breaklines]{matlab}{code/eval_detection.m}}
 
-\قسمت{ارزیابی \لر{ROC}
+\قسمت{ارزیابی \لر{ROC}\label{app:roc}
 		(
 	\texttt{eval\_roc.m}
 	)
@@ -31,7 +31,7 @@
 	\lr{\inputminted[frame=single, breaklines]{matlab}{code/eval_roc.m}}
 	
 	
-	\قسمت{ارزیابی آشکارسازی بر حسب \لر{SNR}
+	\قسمت{ارزیابی آشکارسازی بر حسب \لر{SNR}\label{app:detection-vs-snr}
 		(
 		\texttt{eval\_detection\_SNR.m}
 		)
@@ -49,11 +49,13 @@
 \زیرقسمت{تابع تحلیل \لر{detection}
 	(\texttt{detection\_analysis})
 }
+این تابع، اولا با شبیه‌سازی مونت‌کارلو احتمال آشکارسازی را به دست می‌آورد و ثانیا با استفاده از توزیع‌های به دست آمده احتمالات رامحاسبه می‌کند و در کنار نمودار شبیه سازی  قرار می‌دهد. 
 \lr{\inputminted[frame=single, breaklines]{matlab}{code/functions/detection_analysis.m}}
 
 \زیرقسمت{تابع تحلیل \لر{False Alarm}
 	(\texttt{false\_alarm\_analysis})
 }
+این تابع نیز، همانند تابع قبلی است؛ با این تفاوت که برای احتمال \لر{false alarm} است.
 \lr{\inputminted[frame=single, breaklines]{matlab}{code/functions/false_alarm_analysis.m}}
 
 
@@ -62,12 +64,13 @@
 	\texttt{compute\_detection\_prob\_vs\_SNR}
 	)
 }
+این تابع، برای یک احتمال \لر{false alarm} ثابت، احتمال آشکارسازی را برای \لر{SNR}های مختلف به دست می‌آورد.
 
 \lr{\inputminted[frame=single, breaklines]{matlab}{code/functions/compute_detection_prob_vs_SNR.m}}
 
 \pagebreak
 \قسمت{توابع شبیه‌سازی احتمالات}
-توابع این قسمت با تولید داده و انجام شبیه‌سازی و استفاده از آمارگان معرفی شده، احتمال آشکارسازی و \لر{false alarm} را محاسبه می‌کنند.
+توابع این قسمت، با اانجام شبیه‌سازی مونت‌کارلو و استفاده از آمارگان معرفی شده، احتمال آشکارسازی و \لر{false alarm} را محاسبه می‌کنند.
 \زیرقسمت{شبیه‌سازی احتمال \لر{False Alarm} آشکارساز \لر{Rao} تک‌بیتی
 	(
 	\texttt{compute\_one\_bit\_rao\_false\_alarm\_prob.m}
@@ -88,11 +91,10 @@
 	)
 }
 \lr{\inputminted[frame=single, breaklines]{matlab}{code/functions/compute_one_bit_rao_detection_prob.m}}
-\pagebreak
 
 \قسمت{توابع شبیه‌سازی \لر{ROC}}
 
-توابع این قسمت نیز با تولید داده و انجام شبیه‌سازی و استفاده از آمارگان معرفی شده، \لر{ROC} را محاسبه می‌کنند.
+توابع این قسمت نیز با انجام شبیه‌سازی مونت‌کارلو و استفاده از آمارگان معرفی شده، \لر{ROC} را محاسبه می‌کنند.
 
 \زیرقسمت{شبیه‌سازی \لر{ROC} آشکارساز \لر{Rao} تک‌بیتی
 	(
@@ -114,7 +116,7 @@
 \فصل{توابع کمکی}
 این توابع در پوشه‌ی \لر{utilities} موجود در پوشه‌ی \لر{MATLAB} قرار گرفته‌اند و برای محاسبات استفاده می‌شوند.
 \قسمت{تابع محاسبه‌ی P (\texttt{compute\_P})}
-تابع زیر برای محاسبه \لر{P} استفاده می‌شود.
+از تابع زیر برای محاسبه \لر{P}  بر اساس رابطه‌ی \ref{eq:P} استفاده می‌شود.
 
 \lr{\inputminted[frame=single, breaklines]{matlab}{code/utilities/compute_P.m}}
 \pagebreak
@@ -132,42 +134,42 @@
 }
 \lr{\inputminted[frame=single, breaklines]{matlab}{code/utilities/get_H.m}}
 \pagebreak
-\قسمت{توابع دریافت پارامترهای توزیع‌های بتا و کای
+\قسمت{توابع دریافت پارامترهای توزیع‌های بتا و کای-دو
 	(
 	\texttt{get\_beta\_parameters}
 	و
 	\texttt{get\_chi\_parameters}
 	)
 }
-توابع زیر برای دریافت پارامترهای توابع بتا و کای استفاده می‌شود. لازم به ذکر است که برای محاسبات از روابط نشان داده شده در فصل ۴ استفاده شده است.
+از توابع زیر برای دریافت پارامترهای توابع بتا و کای استفاده می‌شود. لازم به ذکر است که برای محاسبات از روابط \ref{eq:beta_approx}، \ref{eq:beta_approx2} و \ref{eq:chi_approx} استفاده شده است.
 \lr{\inputminted[frame=single, breaklines]{matlab}{code/utilities/get_beta_parameters.m}}
 \lr{\inputminted[frame=single, breaklines]{matlab}{code/utilities/get_chi_parameters.m}}
 \قسمت{تابع نرمالیزاسیون آستانه‌ها
 	(\texttt{get\_normalized\_thresholds})
 }
-از تابع زیر برای نرمالیزاسیون آستانه ها استفاده شده است.
+از تابع زیر برای نرمالیزاسیون آستانه ها بر اساس رابطه‌ی \ref{eq:thr_norm} استفاده شده است.
 \lr{\inputminted[frame=single, breaklines]{matlab}{code/utilities/get_normalized_thresholds.m}}
 \pagebreak
 \قسمت{تابع محاسبه‌ی آماره‌ی \لر{Rao}
 	(\texttt{compute\_rao\_statistic})
 }
-این تابع برای محاسبه‌ی آماره‌ی \لر{‌Rao} استفاده می‌شود.
+از این تابع برای محاسبه‌ی آماره‌ی \لر{‌Rao} بر اساس رابطه‌ی \ref{eq:rao} استفاده می‌شود.
 \lr{\inputminted[frame=single, breaklines]{matlab}{code/utilities/compute_rao_statistic.m}}
 
 \قسمت{تابع محاسبه‌ی آماره‌ی \لر{EMR} تک‌بیتی
 	(\texttt{compute\_emr\_statistic})
 }
-این تابع برای محاسبه‌ی آماره‌ی \لر{‌EMR} تک‌بیتی استفاده می‌شود.
+از این تابع برای محاسبه‌ی آماره‌ی \لر{‌EMR} تک‌بیتی بر اساس رابطه‌ی \ref{eq:EMR_onebit} استفاده می‌شود.
 \lr{\inputminted[frame=single, breaklines]{matlab}{code/utilities/compute_emr_statistic.m}}
 
 \قسمت{تابع محاسبه‌ی آماره‌ی \لر{EMR} $\infty$
 	(\texttt{compute\_inf\_emr\_statistic})
 }
-این تابع برای محاسبه‌ی آماره‌ی \لر{‌EMR} در حالت \لر{$\infty$-bit} استفاده می‌شود.
+از این تابع برای محاسبه‌ی آماره‌ی \لر{‌EMR} در حالت \لر{$\infty$-bit} بر اساس رابطه‌ی \ref{eq:EMR_inf} استفاده می‌شود.
 \lr{\inputminted[frame=single, breaklines]{matlab}{code/utilities/compute_inf_emr_statistic.m}}
 
 \قسمت{تابع محاسبه‌ی آماره‌ی \لر{LMPIT}
 	(\texttt{compute\_LMPIT\_statistic})
 }
-این تابع برای محاسبه‌ی آماره‌ی \لر{‌LMPIT} استفاده می‌شود.
+از این تابع برای محاسبه‌ی آماره‌ی \لر{‌LMPIT} بر اساس رابطه‌ی \ref{eq:LMPIT} استفاده می‌شود.
 \lr{\inputminted[frame=single, breaklines]{matlab}{code/utilities/compute_LMPIT_statistic.m}}

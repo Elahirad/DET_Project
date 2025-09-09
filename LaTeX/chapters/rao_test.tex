@@ -187,7 +187,7 @@ $\mathbf{F}(\boldsymbol{\theta})$،
 \begin{قضیه}
 	آماره‌ی \ \لر{Rao} مربوط به تست فرض ما به صورت زیر است:
 	\begin{equation}
-		T_R=\frac{n}{2}\sum_{\substack{i,j=1\\i<j}}^{m} \left|\hat{r}_{ij}\right|^2
+		T_R=\frac{n}{2}\sum_{\substack{i,j=1\\i<j}}^{m} \left|\hat{r}_{ij}\right|^2 \label{eq:rao}
 	\end{equation}
 	که 
 	$\hat{r}_{ij}$
@@ -414,7 +414,7 @@ $\mathbf{F}(\boldsymbol{\theta})$،
 
 آشکارساز \ \لر{$\infty$-bit EMR} مرتبه‌ی دوم که در مقالات قبلی معرفی و به آن اشاره شده است به صورت زیر است :
 \begin{equation}
-	T_{\mathrm{EMR}}(\hat{\mathbf{R}_\mathbf{x}})=\frac{\frac{1}{m}\; \|\hat{\mathbf{R}_\mathbf{x}}\|^2}{\left(\frac{1}{m}\; \mathrm{tr}(\hat{\mathbf{R}_\mathbf{x}})\right)^2}\underset{H_0}{\overset{H_1}{\gtrless}}\; \gamma_{\mathrm{EMR}}
+	T_{\mathrm{EMR}}(\hat{\mathbf{R}_\mathbf{x}})=\frac{\frac{1}{m}\; \|\hat{\mathbf{R}_\mathbf{x}}\|^2}{\left(\frac{1}{m}\; \mathrm{tr}(\hat{\mathbf{R}_\mathbf{x}})\right)^2}\underset{H_0}{\overset{H_1}{\gtrless}}\; \gamma_{\mathrm{EMR}} \label{eq:EMR_inf}
 \end{equation}
 
 که 
@@ -427,10 +427,10 @@ $\mathbf{R}_\mathbf{y}$
 برابر با ۲ است، داریم :
 
 
-\begin{align*}
-	T_{\mathrm{EMR}}(\hat{\mathbf{R}_\mathbf{y}})&=\frac{\frac{1}{m}\; \|\hat{\mathbf{R}_\mathbf{y}}\|^2}{\left(\frac{1}{m}\; \mathrm{tr}(\hat{\mathbf{R}_\mathbf{y}})\right)^2}=\frac{\frac{1}{m}\; \left(2\sum_{i<j}\big|\hat r_{ij}\big|^{2}+m\times4\right)}{\left(\frac{1}{m}\times 2m\right)^2}\\
-	&=\frac{\left(\frac{2}{m}\sum_{i<j}\big|\hat r_{ij}\big|^{2}+4\right)}{4}=\frac{1}{2m} \sum_{i<j}\big|\hat r_{ij}\big|^{2} + 1\\
-\end{align*}
+\begin{align}
+	T_{\mathrm{EMR}}(\hat{\mathbf{R}_\mathbf{y}})&=\frac{\frac{1}{m}\; \|\hat{\mathbf{R}_\mathbf{y}}\|^2}{\left(\frac{1}{m}\; \mathrm{tr}(\hat{\mathbf{R}_\mathbf{y}})\right)^2}=\frac{\frac{1}{m}\; \left(2\sum_{i<j}\big|\hat r_{ij}\big|^{2}+m\times4\right)}{\left(\frac{1}{m}\times 2m\right)^2} \notag \\
+	&=\frac{\left(\frac{2}{m}\sum_{i<j}\big|\hat r_{ij}\big|^{2}+4\right)}{4}=\frac{1}{2m} \sum_{i<j}\big|\hat r_{ij}\big|^{2} + 1 \label{eq:EMR_onebit}
+\end{align}
 در نتیجه داریم :
 \begin{equation}
 	T_{\mathrm{EMR}}(\hat{\mathbf{R}}_{\mathbf{y}})=\frac{1}{mn}T_R + 1
