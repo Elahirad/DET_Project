@@ -10,10 +10,7 @@ All report files can be found in the `LaTeX` folder.
 
 ## Implementation  
 All simulations are performed in the **MATLAB** environment.  
-The source codes are available in the `MATLAB` folder.  
-
-## Repository  
-GitHub link: [DET_Project](https://github.com/Elahirad/DET_Project)  
+The source codes are available in the `MATLAB` folder.   
 
 ---
 
@@ -30,15 +27,12 @@ GitHub link: [DET_Project](https://github.com/Elahirad/DET_Project)
 [One-Bit Spectrum Sensing for Cognitive Radio](https://doi.org/10.1109/TSP.2023.3343569)  
 
 ## گزارش  
-گزارش پروژه به زبان فارسی و با **LaTeX** نوشته شده است تا قالب‌بندی و مراجع‌دهی به صورت آکادمیک انجام شود.  
+گزارش پروژه به زبان فارسی و با **LaTeX** نوشته شده است. 
 فایل‌های گزارش در پوشه‌ی `LaTeX` قرار دارند.  
 
 ## پیاده‌سازی  
 تمام شبیه‌سازی‌ها در محیط **MATLAB** انجام شده‌اند.  
-کدها در پوشه‌ی `MATLAB` موجود هستند.  
-
-## مخزن  
-لینک گیت‌هاب: [DET_Project](https://github.com/Elahirad/DET_Project)  
+کدها در پوشه‌ی `MATLAB` موجود هستند.   
 
 ---
 
